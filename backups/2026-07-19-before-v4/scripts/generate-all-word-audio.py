@@ -15,7 +15,7 @@ def sanitize(w):
     return w.replace(" ", "-").replace("/", "-").replace("\\", "-")
 
 # 从 JS 数据文件提取词库
-data_file = os.path.join(DIR, "word-bank-data.js")
+data_file = os.path.join(DIR, "ppts", "word-bank-data.js")
 with open(data_file) as f:
     content = f.read()
 

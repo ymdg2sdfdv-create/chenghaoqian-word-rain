@@ -8,7 +8,7 @@ EN_DIR = os.path.join(DIR, "assets", "audio", "words-en")
 CN_DIR = os.path.join(DIR, "assets", "audio", "words-cn")
 os.makedirs(EN_DIR, exist_ok=True)
 os.makedirs(CN_DIR, exist_ok=True)
-DATA = os.path.join(DIR, "word-bank-data.js")
+HTML = os.path.join(DIR, "ppts", "word-rain.html")
 
 EN_VOICE = "en-US-GuyNeural"
 CN_VOICE = "zh-CN-YunxiNeural"
@@ -17,7 +17,7 @@ def sanitize(word):
     return word.replace(" ", "-").replace("/", "-").replace("\\", "-")
 
 def extract_words():
-    with open(DATA) as f:
+    with open(HTML) as f:
         content = f.read()
     start = content.find("const WORD_BANK = {")
     if start < 0:

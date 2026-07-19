@@ -2,13 +2,12 @@
 """
 解析 gaokao-800-high-frequency-words.md，生成 30 天分配方案。
 输出：
-  1. D30_PLAN  JS 对象（899个课程条目，保留同形词与原始日顺序）
-  2. WORD_BANK  JS 对象（全量词库，按类别）
-
-每个课程条目使用独立 ID，避免同形词在不同日期出现时被错误去重。
+  1. WORD_BANK  JS 对象（全量词库，按类别）
+  2. D30_PLAN  JS 对象（每天30词）
+  3. word_map   JS 对象（word → {cat, cn}，快速查找）
 """
 
-import re, json, random, os
+import re, json, random, os, sys
 
 DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MD = os.path.join(DIR, "vocabulary", "gaokao-800-high-frequency-words.md")
@@ -67,6 +66,7 @@ total_days = 30
 
 # 每个类别分别打乱后，轮流投放到30天
 d30 = {d: [] for d in range(1, total_days + 1)}
+cat_day = {c: 0 for c in cat_keys if c != "writing"}  # 每个类别的投放指针
 
 for cat in cat_keys:
     if cat == "writing":
@@ -76,15 +76,22 @@ for cat in cat_keys:
     # 轮流投放到30天
     for i, (en, cn) in enumerate(words):
         day = (i % total_days) + 1
-        d30[day].append({"word": en, "cn": cn, "cat": cat})
+        d30[day].append(en)
 
-# 验证：四个类别分别轮询，因此每天为29-31个课程条目
+# 验证：每天应该在29-31之间
 counts = [len(d30[d]) for d in range(1, 31)]
 print(f"每天词数：min={min(counts)}, max={max(counts)}, avg={sum(counts)/30:.0f}")
 
+# 平衡调整：从最多的天移1个到最少的天，使每天都是30
+# 先算一下：899词/30天，需要29900/30=29.97，所以有些天29有些天30
+# 目标：尽量接近30，允许29-30的偏差
 total_words = sum(counts)
-ideal = total_words / total_days
+ideal = total_words // total_days  # 29 或 30
 print(f"总词量：{total_words}，每天理想值：{ideal}")
+
+# 899 = 29*30 + 29, 所以需要 29天x30词 + 1天x29词
+# 实际上：round-robin分配 899词到30天 = 29 × 30 + 1 × 29
+# round-robin 已经自然做到了
 print("✅ 轮询分配完成")
 
 # ===== 输出 JS 代码 =====
@@ -97,22 +104,9 @@ out.append("")
 # D30_PLAN
 out.append("const D30_PLAN = {")
 for d in range(1, 31):
-    entries = d30[d]
+    words = d30[d]
     line = "  " + json.dumps(d) + ": ["
-    encoded = []
-    for index, entry in enumerate(entries, start=1):
-        safe = re.sub(r"[ /\\]+", "-", entry["word"]).lower()
-        course_id = f"day{d:02d}-{index:02d}-{safe}"
-        item = {
-            "id": course_id,
-            "word": entry["word"],
-            "cn": entry["cn"],
-            "cat": entry["cat"],
-            "day": d,
-            "order": index,
-        }
-        encoded.append(json.dumps(item, ensure_ascii=False, separators=(",", ":")))
-    line += ", ".join(encoded)
+    line += ", ".join(json.dumps(w, ensure_ascii=False) for w in words)
     line += "],"
     out.append(line)
 out.append("};")
