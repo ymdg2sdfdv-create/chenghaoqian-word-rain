@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陈浩谦 · 单词轰炸早读系统</title>
+<meta http-equiv="refresh" content="0; url=word-rain.html">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; text-align: center;
+  }
+  .card {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 48px 32px;
+    max-width: 420px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  }
+  h1 { font-size: 1.5rem; margin-bottom: 8px; }
+  .sub { color: #94a3b8; font-size: 0.9rem; margin-bottom: 24px; }
+  .loader {
+    display: inline-block; width: 36px; height: 36px;
+    border: 3px solid #334155; border-top-color: #38bdf8;
+    border-radius: 50%; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .link { display: block; margin-top: 20px; color: #38bdf8; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="loader"></div>
+  <h1>⚡ 单词轰炸早读系统</h1>
+  <p class="sub">正在进入第 N 天早读…</p>
+  <a class="link" href="word-rain.html">如果没有自动跳转，点这里 →</a>
+</div>
+</body>
+</html>
