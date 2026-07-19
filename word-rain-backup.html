@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🧠 单词轰炸 · 陈浩谦 30天计划</title>
+<style>
+:root {
+  --bg: #0a0a14; --surface: rgba(255,255,255,0.04);
+  --text: #e0e0e0; --muted: #555; --dim: #333;
+  --green: #2ecc71; --gold: #f1c40f; --orange: #e67e22;
+  --blue: #3498db; --radius: 10px;
+  --font: "Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg); overflow: hidden;
+  height: 100vh; height: 100dvh;
+  font-family: var(--font);
+  user-select: none; -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ---- Starfield ---- */
+.star { position:fixed; border-radius:50%; background:#fff; pointer-events:none; z-index:0; animation: twinkle var(--dur) ease-in-out infinite; animation-delay: var(--delay); }
+@keyframes twinkle { 0%,100%{opacity:0.15} 50%{opacity:0.6} }
+
+canvas { display:block; position:absolute; top:0; left:0; }
+
+/* ---- HUD ---- */
+#hud {
+  position:fixed; top:0; left:0; right:0; z-index:150;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 16px; gap:10px;
+  background:linear-gradient(180deg, rgba(0,0,0,0.7), transparent);
+  pointer-events:none;
+}
+#phaseLabel {
+  color:var(--orange); font-size:12px; font-weight:700;
+  letter-spacing:1px; padding:4px 10px;
+  border-radius:12px; background:rgba(230,126,34,0.12);
+}
+#phaseLabel.new { color:var(--green); background:rgba(46,204,113,0.12); }
+#hud .btns { display:flex; gap:8px; }
+#hud button {
+  pointer-events:auto; width:36px; height:36px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.06); color:#ccc;
+  font-size:15px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+#hud button:hover { background:rgba(255,255,255,0.14); border-color:var(--gold); }
+#hud button.muted { color:var(--orange); border-color:var(--orange); }
+
+/* ---- Welcome / Overlay ---- */
+.overlay {
+  display:none; position:fixed; inset:0; z-index:300;
+  background:radial-gradient(ellipse at center, rgba(20,20,50,0.95) 0%, rgba(5,5,15,0.98) 100%);
+  flex-direction:column; align-items:center; justify-content:center;
+  color:#fff; text-align:center;
+}
+.overlay.show { display:flex; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.overlay h2 { font-size:32px; margin-bottom:4px; letter-spacing:1px; }
+.overlay .subtitle { font-size:13px; color:var(--gold); margin-bottom:16px; letter-spacing:3px; text-transform:uppercase; }
+.overlay .day-ring {
+  width:80px; height:80px; border-radius:50%;
+  border:3px solid rgba(255,255,255,0.12);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  margin:0 auto 18px; position:relative;
+}
+.overlay .day-ring .ring-num { font-size:28px; font-weight:900; color:var(--gold); line-height:1; }
+.overlay .day-ring .ring-label { font-size:10px; color:var(--muted); letter-spacing:1px; }
+.overlay .day-ring svg { position:absolute; top:-3px; left:-3px; width:86px; height:86px; transform:rotate(-90deg); }
+.overlay .day-ring svg circle { fill:none; stroke:var(--green); stroke-width:3; stroke-linecap:round; }
+.overlay .stats-row { display:flex; gap:16px; margin:6px 0 18px; }
+.overlay .stat {
+  text-align:center; padding:12px 20px; border-radius:14px;
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  min-width:90px;
+}
+.overlay .stat .num { font-size:36px; font-weight:900; line-height:1.1; }
+.overlay .stat .num.r { color:var(--orange); }
+.overlay .stat .num.n { color:var(--green); }
+.overlay .stat .lbl { font-size:11px; color:var(--muted); margin-top:3px; }
+.overlay .motto { font-size:12px; color:var(--dim); margin-bottom:16px; max-width:300px; line-height:1.6; }
+.overlay button {
+  margin-top:4px; padding:14px 36px; border-radius:26px;
+  border:2px solid var(--green); background:rgba(46,204,113,0.1);
+  color:var(--green); font-size:18px; font-weight:800;
+  cursor:pointer; font-family:var(--font); transition:all 0.25s;
+  letter-spacing:1px;
+  box-shadow:0 0 30px rgba(46,204,113,0.1);
+}
+.overlay button:hover { background:rgba(46,204,113,0.2); box-shadow:0 0 40px rgba(46,204,113,0.2); transform:translateY(-1px); }
+.overlay button:active { transform:scale(0.95); }
+.overlay button.retry { border-color:var(--orange); color:var(--orange); background:rgba(230,126,34,0.1); box-shadow:0 0 30px rgba(230,126,34,0.1); }
+.overlay button.retry:hover { background:rgba(230,126,34,0.2); box-shadow:0 0 40px rgba(230,126,34,0.2); }
+
+/* ---- Central ---- */
+#central {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  z-index:50; pointer-events:none; text-align:center; display:none;
+}
+#central .en {
+  font-family:"Arial Black",var(--font); font-weight:900; color:#fff;
+  text-shadow:0 0 40px rgba(255,255,255,0.5); transition:font-size 0.2s;
+}
+#central .cn {
+  font-family:var(--font); font-weight:900; color:#fff;
+  text-shadow:0 0 30px rgba(255,255,255,0.4); transition:font-size 0.2s;
+}
+/* ---- Central glow pulse ---- */
+#central .en { animation: glowPulse 2s ease-in-out infinite; }
+@keyframes glowPulse { 0%,100%{text-shadow:0 0 40px rgba(255,255,255,0.4),0 0 80px rgba(255,255,255,0.1)} 50%{text-shadow:0 0 60px rgba(255,255,255,0.7),0 0 120px rgba(255,200,100,0.2)} }
+
+
+/* ---- Bottom Bar ---- */
+#bar {
+  position:fixed; bottom:0; left:0; right:0; z-index:100;
+  padding:8px 20px 20px;
+  background:linear-gradient(0deg, rgba(0,0,0,0.95), transparent);
+  pointer-events:none;
+}
+#bar>* { pointer-events:auto; }
+#bar .info-row { display:flex; justify-content:space-between; color:var(--muted); font-size:11px; margin-bottom:3px; }
+#bar .info-row .word { color:var(--text); font-weight:700; }
+#bar .track { height:4px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden; margin-bottom:5px; }
+#bar .fill { height:100%; border-radius:2px; width:0%; transition:width 0.3s; }
+#bar .fill.review { background:var(--orange); }
+#bar .fill.new { background:var(--green); }
+#bar .btn-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+#bar .btn-row button {
+  padding:8px 16px; border-radius:20px;
+  border:1px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.05); color:#ccc;
+  font-family:var(--font); font-size:13px; font-weight:600;
+  cursor:pointer; transition:all 0.15s; white-space:nowrap;
+  min-width:44px; min-height:36px;
+}
+#bar .btn-row button:hover { background:rgba(255,255,255,0.12); border-color:var(--gold); }
+#bar .btn-row button:active { transform:scale(0.94); }
+#bar .btn-row button { backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
+
+#bar .btn-row button.primary { background:rgba(46,204,113,0.15); border-color:var(--green); color:var(--green); }
+
+/* ---- Responsive ---- */
+/* ---- iPad ---- */
+@media (min-width:601px) and (max-width:1200px) {
+  #hud { padding:14px 20px; }
+  #hud button { width:42px; height:42px; font-size:18px; }
+  #bar { padding:10px 24px 24px; }
+  #bar .btn-row button { padding:10px 20px; font-size:15px; min-width:52px; min-height:44px; }
+  #bar .info-row { font-size:13px; }
+  #central .en { font-size:72px!important; }
+  #central .cn { font-size:44px!important; }
+  .overlay h2 { font-size:36px; }
+  .overlay .day-ring { width:90px; height:90px; }
+  .overlay .day-ring .ring-num { font-size:32px; }
+  .overlay .stat .num { font-size:40px; }
+  .overlay .stat { padding:14px 24px; min-width:110px; }
+  .overlay button { padding:16px 40px; font-size:20px; }
+}
+
+/* ---- Phone ---- */
+@media (max-width:600px) {
+  #hud { padding:8px 10px; gap:4px; }
+  #hud button { width:32px; height:32px; font-size:13px; }
+  #bar { padding:6px 12px 16px; }
+  #bar .btn-row button { padding:6px 10px; font-size:11px; }
+  .overlay h2 { font-size:24px; }
+  .overlay .day-ring { width:64px; height:64px; }
+  .overlay .day-ring .ring-num { font-size:22px; }
+  .overlay .stat .num { font-size:26px; }
+  .overlay .stat { padding:8px 12px; min-width:70px; }
+  #central .en { font-size:48px!important; }
+  #central .cn { font-size:32px!important; }
+}
+
+/* ---- Safe area ---- */
+#bar { padding-bottom:calc(20px + env(safe-area-inset-bottom, 0px)); }
+#hud { padding-top:calc(12px + env(safe-area-inset-top, 0px)); }
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<div id="hud">
+  <span id="phaseLabel"></span>
+  <div class="btns">
+    <button id="muteBtn" title="静音" aria-label="静音切换">🔊</button>
+  </div>
+</div>
+
+<div id="central"><div class="en" id="cEN"></div><div class="cn" id="cCN"></div></div>
+
+<div id="bar">
+  <div class="info-row">
+    <span class="word" id="curWord">—</span>
+    <span class="count" id="wordCount">0/0</span>
+  </div>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="info-row"><span id="stats">点击开始</span><span id="catLabel"></span></div>
+  <div class="btn-row">
+    <button id="btnPause" class="primary">⏯ 暂停</button>
+    <button id="btnSkip">⏭ 跳过</button>
+    <button id="btnRestart">🔄 重来</button>
+  </div>
+</div>
+
+<div class="overlay" id="welcomeOverlay">
+  <div id="welcomeContent"></div>
+</div>
+<div class="overlay" id="completeOverlay">
+  <div id="completeContent"></div>
+</div>
+
+<!-- 词库数据（由 build-d30-plan.py 生成） -->
+<script src="word-bank-data.js"></script>
+
+<script>
+/* ================================================================
+   单词轰炸 v3.0 — 陈浩谦 · 30天系统化早读工具
+   ================================================================ */
+
+// ===== DOM =====
+const $ = id => document.getElementById(id);
+const cv = $("c"), ctx = cv.getContext("2d");
+const cEN = $("cEN"), cCN = $("cCN"), central = $("central");
+const fillBar = $("fill"), statsEl = $("stats");
+const phaseLabel = $("phaseLabel"), catLabel = $("catLabel");
+const welcomeOverlay = $("welcomeOverlay"), welcomeContent = $("welcomeContent");
+const completeOverlay = $("completeOverlay"), completeContent = $("completeContent");
+const muteBtn = $("muteBtn");
+
+// Canvas resize
+let W, H;
+function rs() { W = window.innerWidth; H = window.innerHeight; cv.width = W; cv.height = H; }
+rs(); window.addEventListener("resize", rs);
+
+/* ================================================================
+   音频系统（v2.1 移植 + 反馈语音）
+   ================================================================ */
+const AUDIO_BASE = "../assets/audio/";
+const EN_DIR = AUDIO_BASE + "words-en/", CN_DIR = AUDIO_BASE + "words-cn/";
+const FB_DIR = AUDIO_BASE + "feedback/";
+
+function safeFn(w) { return w.replace(/ /g,"-").replace(/\//g,"-").replace(/\\/g,"-"); }
+
+let audioCtx = null, tickBuffer = null, muted = (()=>{
+  try { return localStorage.getItem("wordrain_muted")==="1"; } catch(_) { return false; }
+})();
+
+function setMuted(v) {
+  muted = v;
+  try { localStorage.setItem("wordrain_muted",v?"1":"0"); } catch(_) {}
+  muteBtn.textContent = muted ? "🔇" : "🔊";
+  if (muted) { muteBtn.classList.add("muted"); stopSpeech(); }
+  else muteBtn.classList.remove("muted");
+}
+setMuted(muted);
+
+function ensureAudio() {
+  if (!audioCtx) { try { audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } catch(_) { return false; } }
+  if (audioCtx.state==="suspended") audioCtx.resume();
+  if (!tickBuffer && audioCtx) {
+    const dur = 0.012;
+    tickBuffer = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate*dur), audioCtx.sampleRate);
+    const d = tickBuffer.getChannelData(0);
+    for (let i=0; i<d.length; i++) d[i] = (Math.random()*2-1)*Math.exp(-i/(audioCtx.sampleRate*0.0012));
+  }
+  return true;
+}
+
+function playSound(kind) {
+  if (muted || !ensureAudio()) return;
+  try {
+    const ctx = audioCtx, now = ctx.currentTime;
+    if (kind==="tick") {
+      if (!tickBuffer) return;
+      const s = ctx.createBufferSource(), g = ctx.createGain();
+      s.buffer = tickBuffer;
+      g.gain.setValueAtTime(0.09, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now+0.012);
+      s.connect(g).connect(ctx.destination);
+      s.start(now); s.stop(now+0.014);
+      s.onended = ()=>{ try { s.disconnect(); g.disconnect(); } catch(_) {} };
+      return;
+    }
+    const table = {
+      beat:[520,880,0.10,0.09], reveal:[660,1100,0.16,0.10],
+      correct:[523,1047,0.20,0.11], finish:[440,880,0.30,0.10],
+      click:[520,740,0.06,0.06]
+    };
+    const [f0,f1,dur,vol] = table[kind]||table.beat;
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "triangle";
+    o.frequency.setValueAtTime(f0, now);
+    o.frequency.exponentialRampToValueAtTime(f1, now+dur);
+    g.gain.setValueAtTime(0.001, now);
+    g.gain.exponentialRampToValueAtTime(vol, now+0.012);
+    g.gain.exponentialRampToValueAtTime(0.001, now+dur);
+    o.connect(g).connect(ctx.destination);
+    o.start(now); o.stop(now+dur+0.03);
+    o.onended = ()=>{ try { o.disconnect(); g.disconnect(); } catch(_) {} };
+  } catch(_) {}
+}
+
+// 播放反馈语音 MP3
+function playFeedback(name) {
+  if (muted) return;
+  ensureAudio();
+  try {
+    const a = new Audio(FB_DIR + name);
+    a.play().catch(()=>{});
+  } catch(_) {}
+}
+
+// 播放单词 MP3
+function playWordMP3(dir, word) {
+  if (muted) return Promise.resolve(false);
+  const url = dir + safeFn(word) + ".mp3";
+  return new Promise(resolve => {
+    try { const a = new Audio(url); a.onended=()=>resolve(true); a.onerror=()=>resolve(false); a.play().catch(()=>resolve(false)); }
+    catch(_) { resolve(false); }
+  });
+}
+
+// TTS fallback
+const EN_VOICES = ["Samantha","Daniel","Alex","Tom","Fred"];
+const CN_VOICES = ["Eddy","Rocko","Reed"];
+let voicesCache = [];
+function loadVoices() { voicesCache = window.speechSynthesis ? window.speechSynthesis.getVoices() : []; }
+loadVoices();
+if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = loadVoices;
+
+function pickVoice(lang, wl) {
+  for (const n of wl) { const v = voicesCache.find(v=>v.name===n&&v.lang.startsWith(lang)); if (v) return v; }
+  if (lang==="zh") return null;
+  return voicesCache.find(v=>v.lang.startsWith(lang))||null;
+}
+
+function fallbackTTS(text, lang) {
+  if (muted || !window.speechSynthesis) return;
+  loadVoices();
+  try {
+    const isCN = lang==="zh"||lang==="zh-CN";
+    const wl = isCN ? CN_VOICES : EN_VOICES;
+    const lc = isCN ? "zh-CN" : "en-US";
+    const voice = pickVoice(isCN?"zh":"en", wl);
+    if (isCN && !voice) return;
+    const u = new SpeechSynthesisUtterance(String(text).replace(/[{}]/g,""));
+    u.lang = lc; if (voice) u.voice = voice;
+    u.rate=0.92; u.pitch=1.0; u.volume=0.9;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  } catch(_) {}
+}
+
+async function speak(text, lang, isSingleChar, mp3Key) {
+  if (muted) return;
+  if (isSingleChar) { fallbackTTS(text, lang); return; }
+  const dir = (lang==="zh"||lang==="zh-CN") ? CN_DIR : EN_DIR;
+  const ok = await playWordMP3(dir, mp3Key || text);
+  if (!ok) fallbackTTS(text, lang);
+}
+
+function speakEN(t,sc) { return speak(t,"en",sc,t); }
+function speakCN(t) { return speak(t,"zh",false,state.currentWord); }
+function stopSpeech() { if (window.speechSynthesis) try { window.speechSynthesis.cancel(); } catch(_) {} }
+
+/* ================================================================
+   遗忘曲线引擎（SM-2 简化）
+   ================================================================ */
+const INTERVALS = [1, 2, 4, 7, 15]; // 艾宾浩斯简化
+const SR_KEY = "wordrain_sr";
+
+function srLoad() { try { return JSON.parse(localStorage.getItem(SR_KEY)||"{}"); } catch(_) { return {}; } }
+function srSave(data) { try { localStorage.setItem(SR_KEY, JSON.stringify(data)); } catch(_) {} }
+
+function getToday() { return new Date().toISOString().slice(0,10); }
+
+function srMarkLearned(word, day) {
+  const data = srLoad();
+  const today = getToday();
+  data[word] = {
+    learnedDay: day,
+    learnedDate: today,
+    reviews: [],
+    nextReview: addDays(today, INTERVALS[0]),
+    interval: INTERVALS[0],
+    ease: 2.5
+  };
+  srSave(data);
+}
+
+function srMarkReviewed(word, quality) {
+  const data = srLoad();
+  const entry = data[word];
+  if (!entry) return;
+  const today = getToday();
+  entry.reviews.push({date: today, quality});
+  const idx = Math.min(entry.reviews.length, INTERVALS.length - 1);
+  if (quality >= 3) {
+    entry.interval = INTERVALS[idx];
+    entry.ease = Math.max(1.3, entry.ease + (0.1 - (4-quality)*(0.08+(4-quality)*0.02)));
+  } else {
+    entry.interval = INTERVALS[0];
+    entry.ease = Math.max(1.3, entry.ease - 0.2);
+  }
+  entry.nextReview = addDays(today, Math.round(entry.interval * entry.ease));
+  srSave(data);
+}
+
+function addDays(dateStr, days) {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0,10);
+}
+
+function getDueReviews() {
+  const data = srLoad();
+  const today = getToday();
+  const due = [];
+  for (const [word, entry] of Object.entries(data)) {
+    if (entry.nextReview <= today) due.push(word);
+  }
+  due.sort((a,b) => (data[a].nextReview||"").localeCompare(data[b].nextReview||""));
+  return due;
+}
+
+function getCurrentDay() {
+  try {
+    const d = parseInt(localStorage.getItem("wordrain_day")||"1");
+    return Math.min(Math.max(d, 1), 30);
+  } catch(_) { return 1; }
+}
+
+function advanceDay() {
+  const d = getCurrentDay();
+  if (d < 30) {
+    try { localStorage.setItem("wordrain_day", String(d+1)); } catch(_) {}
+  }
+}
+
+function getNewWordsForToday() {
+  const day = getCurrentDay();
+  const plan = D30_PLAN[day] || [];
+  const data = srLoad();
+  return plan.filter(w => !(w in data)); // 只选没学过的
+}
+
+/* ================================================================
+   Session 状态机
+   ================================================================ */
+const PHASE = { IDLE:0, REVIEW:1, NEW:2, COMPLETE:3 };
+
+let state = {
+  phase: PHASE.IDLE,
+  reviewQueue: [],      // 复习词列表
+  newQueue: [],         // 新词列表
+  fullQueue: [],        // 合并后的完整队列
+  queueIdx: 0,
+  reviewCount: 0,       // 复习词数量
+  newCount: 0,          // 新词数量
+  completedReview: 0,
+  completedNew: 0,
+  currentWord: null,
+  active: false,
+  // Per-word
+  instances: [],
+  spellPhase: 0, spellIdx: 0,
+  enHit:0, cnHit:0, audioRounds:0, totalHit:0,
+  timer:null, metroTimer:null, spellTimer:null,
+  isReview: false,      // 当前词是复习还是新词
+};
+
+function buildSession() {
+  const reviewWords = getDueReviews();
+  const newWords = getNewWordsForToday();
+  state.reviewQueue = reviewWords;
+  state.newQueue = newWords;
+  state.reviewCount = reviewWords.length;
+  state.newCount = newWords.length;
+  state.completedReview = 0;
+  state.completedNew = 0;
+  // Full queue: review first, then new
+  state.fullQueue = [...reviewWords, ...newWords];
+  state.queueIdx = 0;
+  state.phase = PHASE.IDLE;
+}
+
+function isReviewWord(idx) {
+  return idx < state.reviewCount;
+}
+
+/* ================================================================
+   UI：Welcome / Phase / Progress
+   ================================================================ */
+function showWelcome() {
+  buildSession();
+  const day = getCurrentDay();
+  const empty = state.fullQueue.length === 0;
+  const dayProgress = Math.round((day - 1) / 30 * 100);
+  const motto = empty
+    ? "今天的任务已完成，明天继续加油！"
+    : ["每一词都是分数，每一步都算数。","从80分到110分，浩谦你可以的。","坚持30天，词汇量就是你的武器。","早起的鸟儿有词吃！"][(day-1)%4];
+
+  welcomeContent.innerHTML = `
+    <div style="font-size:48px;margin-bottom:8px;">🧠</div>
+    <h2>单词轰炸</h2>
+    <div class="subtitle">第 ${day} 天 · 陈浩谦</div>
+    <div class="day-ring">
+      <div class="ring-num">${day}</div>
+      <div class="ring-label">/ 30 天</div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="num r">${state.reviewCount}</div><div class="lbl">🔄 待复习</div></div>
+      <div class="stat"><div class="num n">${state.newCount}</div><div class="lbl">🆕 新词</div></div>
+    </div>
+    <div class="motto">${motto}</div>
+    ${empty
+      ? '<div style="color:var(--green);margin:8px 0;font-size:16px;font-weight:700;">✅ 今日任务已全部完成</div><button class="retry" onclick="restart()">🔄 重新复习</button>'
+      : '<button onclick="startSession()">⚡ 开始今日轰炸</button>'}
+  `;
+  welcomeOverlay.classList.add("show");
+  completeOverlay.classList.remove("show");
+  phaseLabel.textContent = "";
+  statsEl.textContent = `第 ${day} 天 · 复习${state.reviewCount} + 新词${state.newCount}`;
+  $("curWord").textContent = "—";
+  $("wordCount").textContent = `0/${state.fullQueue.length}`;
+  fillBar.style.width = "0%";
+  fillBar.className = "fill";
+}
+
+function startSession() {
+  welcomeOverlay.classList.remove("show");
+  state.active = true;
+  state.phase = PHASE.REVIEW;
+  state.queueIdx = 0;
+  state.completedReview = 0;
+  state.completedNew = 0;
+  ensureAudio();
+  loadVoices();
+
+  let hasFeedback = false;
+  if (state.reviewCount > 0) {
+    playFeedback("review-start.mp3");
+    hasFeedback = true;
+  } else if (state.newCount > 0) {
+    playFeedback("new-words-start.mp3");
+    hasFeedback = true;
+  }
+
+  if (state.fullQueue.length === 0) {
+    statsEl.textContent = "🎉 今天的任务已经完成了！";
+    showComplete();
+    return;
+  }
+
+  updatePhaseUI();
+  // 等欢迎语音播放完毕再开始第一个词，避免重叠
+  const delay = hasFeedback ? 5000 : 400;
+  setTimeout(() => nextWord(), delay);
+}
+
+function updatePhaseUI() {
+  const isRev = state.queueIdx < state.reviewCount;
+  state.isReview = isRev;
+  if (isRev) {
+    phaseLabel.textContent = `🔄 复习中 ${state.completedReview+1}/${state.reviewCount}`;
+    phaseLabel.className = "";
+    fillBar.className = "fill review";
+  } else {
+    phaseLabel.textContent = `🆕 新词 ${state.completedNew+1}/${state.newCount}`;
+    phaseLabel.className = "new";
+    fillBar.className = "fill new";
+  }
+}
+
+function updateProgress() {
+  const progress = state.queueIdx / state.fullQueue.length;
+  fillBar.style.width = (progress * 100) + "%";
+}
+
+// 中途鼓励（每8个新词触发），返回是否播放了语音
+function maybeEncourage() {
+  if (!state.isReview && state.completedNew > 0 && state.completedNew % 8 === 0 && state.completedNew < state.newCount) {
+    const n = Math.floor(Math.random() * 5) + 1;
+    playFeedback(`encourage-${n}.mp3`);
+    return true;
+  }
+  return false;
+}
+
+/* ================================================================
+   单词循环
+   ================================================================ */
+function nextWord() {
+  if (state.queueIdx >= state.fullQueue.length) {
+    done();
+    return;
+  }
+
+  state.currentWord = state.fullQueue[state.queueIdx];
+  state.isReview = isReviewWord(state.queueIdx);
+  updatePhaseUI();
+  updateProgress();
+
+  // 参数
+  state.instances = [];
+  state.spellPhase = 0; state.spellIdx = 0;
+  state.enHit = 0; state.cnHit = 0; state.audioRounds = 0; state.totalHit = 0;
+
+  const total = state.fullQueue.length;
+  $("curWord").textContent = state.currentWord;
+  $("wordCount").textContent = `${state.queueIdx+1}/${total}`;
+  fillBar.style.width = "0%";
+  statsEl.textContent = state.isReview ? "复习拼读中…" : "新词拼读中…";
+
+  // 类别标签
+  const cat = getCat(state.currentWord);
+  catLabel.textContent = CAT_META[cat]?.emoji || "";
+
+  cEN.textContent = ""; cCN.textContent = "";
+  central.style.display = "block";
+
+  // metro(500); // 节拍器已禁用
+  spellRound();
+}
+
+function getCat(word) {
+  for (const [cat, bank] of Object.entries(WORD_BANK)) {
+    if (word in bank) return cat;
+  }
+  return "verb";
+}
+
+// ---- 拼读阶段：每轮完成后单词上推堆叠，最新最大 ----
+function spellRound() {
+  const maxRounds = state.isReview ? 2 : 5;
+  if (state.spellPhase >= maxRounds) { rapidPhase(); return; }
+
+  state.spellIdx = 0;
+  cCN.textContent = "";
+  cEN.style.fontSize = (W<400) ? "50px" : "72px";
+  const letters = state.currentWord.split("");
+  const letterTime = 340;
+
+  function nextLetter() {
+    if (state.spellIdx > letters.length) return;
+    if (state.spellIdx === letters.length) {
+      cEN.textContent = state.currentWord;
+      cEN.style.fontSize = (W<400) ? "66px" : "92px";
+      const cn = WORD_BANK[getCat(state.currentWord)]?.[state.currentWord] || "";
+      cCN.textContent = cn;
+      cCN.style.fontSize = (W<400) ? "32px" : "50px";
+      playSound("reveal");
+      state.audioRounds++; state.totalHit++; state.enHit++; state.cnHit++;
+      (async () => {
+        await speakEN(state.currentWord);
+        await new Promise(r => setTimeout(r, 250));
+        await speakCN(cn);
+        pinSpellRound();
+        state.spellPhase++;
+        spellRound();
+      })();
+      return;
+    }
+    const shown = letters.slice(0, state.spellIdx+1).join("");
+    cCN.textContent = "";
+    cEN.textContent = shown;
+    playSound("beat");
+    speakEN(letters[state.spellIdx], true);
+    state.spellIdx++;
+    state.spellTimer = setTimeout(nextLetter, letterTime);
+  }
+  nextLetter();
+}
+
+// 每轮拼读完成后：EN左靠中心 + CN右接，同行水平排列，向上堆叠
+
+// ---- 完成爆发粒子 ----
+function spawnBurst(x, y, count) {
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 1.5 + Math.random() * 4;
+    state.instances.push({
+      x, y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      text: "✦",
+      sz: 6 + Math.random() * 14,
+      rot: Math.random() * 360,
+      alpha: 0.9,
+      flash: true,
+      age: 0,
+      burst: true
+    });
+  }
+}
+
+function pinSpellRound() {
+  const cn = WORD_BANK[getCat(state.currentWord)]?.[state.currentWord] || "";
+  const total = state.isReview ? 2 : 5;
+  const round = state.spellPhase;
+  const cx = W / 2, centerY = H / 2;
+
+  const maxEn = Math.min(86, W * 0.13);
+  const maxCn = Math.min(42, W * 0.065);
+
+  // 行高：屏幕高度 / (总轮数+1)，确保不溢出不重叠
+  const rowH = Math.min(maxEn * 1.6 + 24, H / (total + 1.5));
+
+  state.instances = state.instances.filter(i => !i.pinned);
+
+  for (let r = 0; r <= round; r++) {
+    const posFromNew = round - r; // 0=最新(中心), 1=次新(上移)...
+    const ratio = 0.42 + 0.58 * (r + 1) / total;
+    const enSz = maxEn * ratio;
+    const cnSz = maxCn * ratio;
+    const rowY = centerY - (posFromNew + 1) * rowH;
+    const gap = 10;
+    // EN 略上，CN 略下，同排不交叠
+    const enY = rowY - cnSz * 0.4;
+    const cnY = rowY + enSz * 0.3;
+
+    state.instances.push({
+      x: cx - gap, y: enY, text: state.currentWord,
+      sz: enSz, rot: 0, alpha: 0.92, flash: false, age: 0,
+      pinned: true, align: "right"
+    });
+    state.instances.push({
+      x: cx + gap, y: cnY, text: cn,
+      sz: cnSz, rot: 0, alpha: 0.72, flash: false, age: 0,
+      pinned: true, align: "left"
+    });
+  }
+
+  // 爆发粒子效果
+  const burstY = centerY - rowH;
+  spawnBurst(cx, burstY, 20);
+
+}
+
+// ---- 快速闪现阶段：黄金角螺旋炸开，不重叠 ----
+function rapidPhase() {
+  central.style.display = "none";
+  clearTimeout(state.metroTimer);
+
+  const totalCycles = state.isReview ? 3 : 8;
+  state._cycleTotal = totalCycles;
+  spawnRapid(0);
+}
+
+// 黄金角螺旋：~137.5°，天然不重叠
+const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+
+function spawnRapid(cycle) {
+  const totalCycles = state._cycleTotal;
+  if (cycle >= totalCycles) {
+    central.style.display = "block";
+    setTimeout(() => {
+      if (state.isReview) {
+        state.completedReview++;
+        srMarkReviewed(state.currentWord, 4);
+      } else {
+        state.completedNew++;
+        srMarkLearned(state.currentWord, getCurrentDay());
+      }
+      const encouraged = maybeEncourage();
+      state.queueIdx++;
+
+      if (state.queueIdx === state.reviewCount && state.newCount > 0 && state.reviewCount > 0) {
+        stopSpeech();
+        playFeedback("review-done.mp3");
+        setTimeout(() => {
+          playFeedback("new-words-start.mp3");
+          updatePhaseUI();
+          setTimeout(() => nextWord(), 5000);
+        }, 2500);
+        return;
+      }
+
+      if (encouraged) {
+        setTimeout(() => nextWord(), 5000);
+      } else {
+        nextWord();
+      }
+    }, 400);
+    return;
+  }
+
+  const cn = WORD_BANK[getCat(state.currentWord)]?.[state.currentWord] || "";
+  const cx = W / 2, cy = H / 2;
+  const maxD = Math.max(W, H) * 0.62;
+
+  // 黄金角螺旋：从中心附近向外扩散，避开堆叠区
+  const angle = cycle * GOLDEN_ANGLE;
+  const dist = (0.30 + (cycle / Math.max(totalCycles - 1, 1)) * 0.50) * maxD;
+  const x = cx + Math.cos(angle) * dist;
+  const y = cy + Math.sin(angle) * dist * 0.75;
+
+  const progress = cycle / totalCycles;
+  const brightness = 1 - dist / maxD * 0.25;
+  const enSz = (50 + progress * 60) * brightness;
+  const cnSz = (24 + progress * 30) * brightness;
+  const rot = (Math.random() - 0.5) * 20;
+
+  // EN 上 CN 下，同位置
+  const gap = cnSz * 0.5;
+  state.instances.push({x, y: y - gap, text: state.currentWord, sz: enSz, rot, alpha: 0.95, flash: true, age: 0});
+  state.instances.push({x, y: y + gap, text: cn, sz: cnSz, rot, alpha: 0.82, flash: true, age: 0});
+
+  state.enHit++; state.cnHit++; state.totalHit++; state.audioRounds++;
+
+  const wordLen = state.currentWord.length;
+  speakEN(state.currentWord);
+
+  let gapMs;
+  if (state.isReview) {
+    gapMs = 1800;
+  } else {
+    if (cycle < 3)        gapMs = 2200;
+    else if (cycle < 6)   gapMs = 1700;
+    else                  gapMs = 1300;
+  }
+
+  updateFlashStats(totalCycles);
+  const minGap = wordLen * 130 + 600;
+  state.timer = setTimeout(() => spawnRapid(cycle + 1), Math.max(gapMs, minGap));
+}
+
+function updateFlashStats(totalCycles) {
+  fillBar.style.width = ((state._cycleTotal ? state.totalHit / state._cycleTotal : 0) * 100) + "%";
+  statsEl.textContent = `闪现 ${state.totalHit} 次 | 英 ${state.enHit} 中 ${state.cnHit} | 朗读 ${state.audioRounds} 轮`;
+}
+
+// ---- 节拍器 ----
+function metro(ms) {
+  clearTimeout(state.metroTimer);
+  function tick() {
+    if (!state.active) return;
+    playSound("tick");
+    state.metroTimer = setTimeout(tick, ms);
+  }
+  tick();
+}
+
+/* ================================================================
+   Canvas 渲染
+   ================================================================ */
+
+// ---- 背景星空粒子 ----
+const stars = [];
+for (let i = 0; i < 70; i++) {
+  stars.push({
+    x: Math.random() * 2000, y: Math.random() * 1200,
+    r: Math.random() * 1.5 + 0.3,
+    vx: (Math.random() - 0.5) * 0.15,
+    vy: (Math.random() - 0.5) * 0.15,
+    phase: Math.random() * Math.PI * 2
+  });
+}
+
+function renderStars() {
+  stars.forEach(s => {
+    s.x += s.vx; s.y += s.vy;
+    if (s.x < -20) s.x = W + 20;
+    if (s.x > W + 20) s.x = -20;
+    if (s.y < -20) s.y = H + 20;
+    if (s.y > H + 20) s.y = -20;
+    s.phase += 0.008;
+    const alpha = 0.08 + Math.sin(s.phase) * 0.06;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    ctx.fill();
+  });
+}
+
+function render() {
+  ctx.fillStyle = "#0a0a14"; ctx.fillRect(0,0,W,H);
+  renderStars();
+  // Remove old burst particles
+  state.instances = state.instances.filter(inst => {
+    if (inst.burst) {
+      inst.x += inst.vx || 0;
+      inst.y += inst.vy || 0;
+      inst.age++;
+      return inst.age < 50;
+    }
+    return true;
+  });
+
+  state.instances.forEach(inst => {
+    if (inst.burst) {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, 1 - inst.age / 50);
+      ctx.translate(inst.x, inst.y);
+      ctx.rotate(inst.age * 0.05);
+      ctx.fillStyle = "#ffd700";
+      ctx.font = `${inst.sz}px sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(inst.text, 0, 0);
+      ctx.restore();
+      return;
+    }
+    inst.age++;
+    const flashBoost = inst.flash ? Math.max(1, 3.0 - inst.age * 0.35) : 1;
+    if (inst.age > 8) inst.flash = false;
+    ctx.save();
+    ctx.globalAlpha = Math.min(1, flashBoost);
+    ctx.translate(inst.x, inst.y);
+    ctx.rotate(inst.rot * Math.PI / 180);
+    ctx.fillStyle = "#fff";
+    if (inst.flash && inst.age < 4) {
+      ctx.shadowColor = "#fff";
+      ctx.shadowBlur = inst.sz * 0.5;
+    }
+    ctx.font = `900 ${inst.sz}px "Arial Black","Noto Sans SC","PingFang SC",sans-serif`;
+    ctx.textAlign = inst.align || "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(inst.text, 0, 0);
+    ctx.restore();
+  });
+  requestAnimationFrame(render);
+}
+
+/* ================================================================
+   完成 & 控制
+   ================================================================ */
+function done() {
+  state.active = false; state.phase = PHASE.COMPLETE;
+  clearTimeout(state.timer); clearTimeout(state.metroTimer); clearTimeout(state.spellTimer);  central.style.display = "none";
+
+  const hadContent = state.completedReview > 0 || state.completedNew > 0;
+  if (hadContent) {
+    playSound("finish");
+    playFeedback("complete.mp3");
+  }
+
+  // 有新词学习且今日词全部完成 → 推进天数
+  if (state.completedNew > 0 && getNewWordsForToday().length === 0) {
+    advanceDay();
+  }
+
+  showComplete();
+}
+
+function showComplete() {
+  const day = getCurrentDay();
+  completeContent.innerHTML = `
+    <div style="font-size:48px;margin-bottom:8px;">🎉</div>
+    <h2>轰炸完成！</h2>
+    <div class="subtitle">第 ${day} 天 · 陈浩谦</div>
+    <div class="stats-row">
+      <div class="stat"><div class="num r">${state.completedReview}</div><div class="lbl">✅ 复习完成</div></div>
+      <div class="stat"><div class="num n">${state.completedNew}</div><div class="lbl">🆕 新词掌握</div></div>
+    </div>
+    <div class="motto">${state.completedNew > 0 ? '每一个词，都是通向110分的台阶。' : '温故而知新，复习同样重要。'}</div>
+    <button onclick="restart()">🔄 再来一轮</button>
+  `;
+  completeOverlay.classList.add("show");
+  welcomeOverlay.classList.remove("show");
+}
+
+function restart() {
+  completeOverlay.classList.remove("show");
+  stopSpeech();
+  clearTimeout(state.timer); clearTimeout(state.metroTimer); clearTimeout(state.spellTimer);  showWelcome();
+}
+
+function togglePause() {
+  ensureAudio(); loadVoices();
+  if (!state.active) {
+    state.active = true;
+    $("btnPause").textContent = "⏯ 暂停";
+    $("btnPause").classList.add("primary");
+    // metro(400); // 节拍器已禁用
+    if (state.spellPhase < (state.isReview?2:5)) spellRound();
+    else { spawnRapid(state.totalHit || 0); }
+  } else {
+    state.active = false;
+    $("btnPause").textContent = "▶ 继续";
+    $("btnPause").classList.remove("primary");
+    clearTimeout(state.timer); clearTimeout(state.metroTimer); clearTimeout(state.spellTimer);  }
+}
+
+function skipWord() {
+  ensureAudio(); loadVoices();
+  clearTimeout(state.timer); clearTimeout(state.metroTimer); clearTimeout(state.spellTimer);  stopSpeech(); playSound("click");
+  if (state.isReview) state.completedReview++;
+  else state.completedNew++;
+  state.queueIdx++;
+  if (state.queueIdx >= state.fullQueue.length) { done(); return; }
+  nextWord();
+}
+
+/* ================================================================
+   事件绑定
+   ================================================================ */
+muteBtn.addEventListener("click", e => {
+  e.stopPropagation(); ensureAudio(); loadVoices();
+  setMuted(!muted); playSound("click");
+});
+
+$("btnPause").addEventListener("click", e => { e.stopPropagation(); togglePause(); });
+$("btnSkip").addEventListener("click", e => { e.stopPropagation(); skipWord(); });
+$("btnRestart").addEventListener("click", e => {
+  e.stopPropagation(); ensureAudio(); loadVoices();
+  playSound("click"); stopSpeech();
+  // Day override: reset to day 1 if all words done
+  restart();
+});
+
+// 键盘
+document.addEventListener("keydown", e => {
+  if (e.key===" ") { e.preventDefault(); togglePause(); }
+  if (e.key==="ArrowRight") { e.preventDefault(); skipWord(); }
+});
+
+// Canvas 点击 = 暂停/继续
+cv.addEventListener("click", () => { ensureAudio(); loadVoices(); togglePause(); });
+
+/* ================================================================
+   启动
+   ================================================================ */
+render();
+showWelcome();
+</script>
+</body>
+</html>
