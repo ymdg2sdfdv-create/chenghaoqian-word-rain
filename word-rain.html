@@ -251,6 +251,7 @@ const CN_VOICES = ["Eddy","Rocko","Reed"];
 const safeFn = word => word.replace(/ /g,"-").replace(/\//g,"-").replace(/\\/g,"-");
 
 let audioCtx = null, tickBuffer = null, soundBus = null, currentAudio = null, settleCurrentAudio = null;
+let sharedAudio = null;
 let voicesCache = [];
 let muted = (() => { try { return localStorage.getItem("wordrain_muted") === "1"; } catch (_) { return false; } })();
 
@@ -319,15 +320,73 @@ function stopCurrentAudio(){
 
 function playFile(url){
   if (muted) return Promise.resolve(false);
-  ensureAudio(); stopCurrentAudio();
+
+  ensureAudio();
+  stopCurrentAudio();
+
   return new Promise(resolve => {
-    let settled=false;
-    const finish=value=>{ if(settled)return; settled=true; if(currentAudio===audio)currentAudio=null; if(settleCurrentAudio===finish)settleCurrentAudio=null; resolve(value); };
-    let audio;
+    let settled = false;
+
+    if (!sharedAudio) {
+      sharedAudio = new Audio();
+      sharedAudio.preload = "auto";
+    }
+
+    const audio = sharedAudio;
+
+    const finish = value => {
+      if (settled) return;
+      settled = true;
+
+      if (currentAudio === audio) currentAudio = null;
+      if (settleCurrentAudio === finish) settleCurrentAudio = null;
+
+      resolve(value);
+    };
+
     try {
-      audio=new Audio(url); currentAudio=audio; settleCurrentAudio=finish;
-      audio.onended=()=>finish(true); audio.onerror=()=>finish(false); audio.play().catch(()=>finish(false));
-    } catch (_) { finish(false); }
+      audio.onended = null;
+      audio.onerror = null;
+
+      currentAudio = audio;
+      settleCurrentAudio = finish;
+
+      audio.onended = () => finish(true);
+
+      audio.onerror = () => {
+        console.warn(
+          "[audio] load failed",
+          url,
+          audio.error?.code || "unknown"
+        );
+        finish(false);
+      };
+
+      audio.src = url;
+      audio.load();
+
+      const promise = audio.play();
+
+      if (promise) {
+        promise.catch(error => {
+          console.warn(
+            "[audio] play failed",
+            url,
+            error?.name || "unknown",
+            error?.message || ""
+          );
+          finish(false);
+        });
+      }
+    } catch (error) {
+      console.warn(
+        "[audio] exception",
+        url,
+        error?.name || "unknown",
+        error?.message || ""
+      );
+      finish(false);
+    }
   });
 }
 
