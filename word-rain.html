@@ -79,7 +79,6 @@ canvas{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:0}
 .overlay button{min-width:min(330px,82vw);min-height:58px;padding:15px 34px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:#fff;color:#000;font-size:clamp(1rem,2.3vw,1.18rem);font-weight:950;letter-spacing:.055em;cursor:pointer;box-shadow:0 0 34px rgba(255,255,255,.12);transition:transform .18s ease,box-shadow .18s ease}
 .overlay button:active{transform:scale(.96)}
 .overlay button.secondary{background:transparent;color:#fff;border-color:rgba(255,255,255,.3);box-shadow:none}
-.reset-link{display:inline-block;margin-top:18px;color:#454545;font-size:11px;text-decoration:none}
 .complete-mark{width:72px;height:72px;display:grid;place-items:center;margin-bottom:24px;border:2px solid #fff;border-radius:50%;font-size:34px;font-weight:950;animation:completePop .7s cubic-bezier(.2,.9,.25,1)}
 @keyframes completePop{from{opacity:0;transform:scale(.35) rotate(-20deg)}to{opacity:1;transform:scale(1) rotate(0)}}
 .complete-total{font-family:"Arial Black",var(--font);font-size:clamp(3.5rem,12vw,7.5rem);font-weight:950;line-height:1;margin:28px 0 8px}
@@ -115,7 +114,10 @@ canvas{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:0}
 #welcomeContent .motto{max-width:390px;min-height:0;margin:0 0 14px;color:#53759b;font-size:clamp(.72rem,1.2vw,.86rem)}
 #welcomeContent button{min-width:min(330px,84%);min-height:54px;border-color:#083f88;background:#083f88;color:#fff;box-shadow:0 12px 30px rgba(7,63,136,.2)}
 #welcomeContent button.secondary{border-color:#0a4f9f;background:rgba(255,255,255,.76);color:#084287}
-#welcomeContent .reset-link{margin-top:10px;color:#83a0c1}
+#welcomeContent button.reset-link{display:inline-block;width:auto;min-width:0;min-height:0;margin-top:10px;padding:6px 10px;border:0;border-radius:8px;background:transparent;color:#83a0c1;box-shadow:none;font-size:11px;font-weight:650;line-height:1.4;letter-spacing:0;text-decoration:none;cursor:pointer;opacity:0.88;appearance:none;-webkit-appearance:none}
+#welcomeContent button.reset-link:hover{color:#4f78a8;opacity:1}
+#welcomeContent button.reset-link:active{transform:none;color:#275f9f}
+#welcomeContent button.reset-link:focus-visible{outline:2px solid #2f7fd5;outline-offset:2px}
 
 @media (min-width:700px) and (max-width:1366px){
   #hud{padding-left:28px;padding-right:28px}#bar{padding-left:30px;padding-right:30px}
@@ -632,7 +634,7 @@ function showWelcome(){
       </div>
       <div class="motto">${courseComplete?"30 天计划已经完成。":motto}</div>
       ${completedToday||courseComplete?`<button class="secondary" onclick="startSession('redo')">重温第 ${day} 天词汇</button>`:`<button onclick="startSession('normal')">开始今日早读</button>`}
-      <a class="reset-link" href="javascript:resetAll()" title="重置所有学习进度">重置进度</a>
+      <button type="button" class="reset-link" onclick="resetAll()" aria-label="重置所有学习进度" title="重置所有学习进度">重置进度</button>
     </div>
   </div>`;
   welcomeOverlay.classList.add("show");completeOverlay.classList.remove("show");phaseLabel.textContent="";
