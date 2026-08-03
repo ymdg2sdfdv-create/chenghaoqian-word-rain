@@ -19,6 +19,14 @@
    ```
 3. iPad 访问：`http://<Mac-IP>:8080/word-rain.html`（同一WiFi）
 
+## 学习进度
+
+- 存储：浏览器本机 `localStorage` 中的 `wordrain_v3`
+- 词库版本：`1200-v2.0-2026-08-03`
+- 旧版 `wordrain_v2`、`wordrain_sr`、`wordrain_day` 不迁移、不读取、不删除
+- 首次使用1200词系统时从 Day 01 建立全新进度
+- 复习节点保持为学习后第 `1、2、4、7、15` 天
+
 ## 音频系统（三级回退）
 
 ```
