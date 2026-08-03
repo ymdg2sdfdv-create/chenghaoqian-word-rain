@@ -7,7 +7,7 @@
 | 文件 | 用途 |
 |------|------|
 | `word-rain.html` | 🧠 单词轰炸主程序 — 30天系统化早读 |
-| `word-bank-data.js` | 900词词库 + 30天分配方案（自动生成） |
+| `word-bank-data.js` | 1200词词库 + 30天分配方案（自动生成） |
 | `word-rain-standalone.html` | 独立版（无外部依赖） |
 | `word-rain-backup.html` | 备份版本 |
 

@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""补全所有单词的 EN+CN MP3（增量：已有跳过）"""
-import subprocess, os, sys, json, time, re
+"""全量生成 1200 词库的 EN+CN MP3。
+
+- 数据源：word-bank-data.js 的 D30_PLAN（覆盖全部1200个课程条目）
+- 先清空旧 words-en / words-cn 目录（旧词库音频已废弃）
+- 用 Edge TTS 生成：EN=en-US-GuyNeural，CN=zh-CN-YunxiNeural
+"""
+import subprocess, os, re, json, time, shutil
 
 DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EN_DIR = os.path.join(DIR, "assets", "audio", "words-en")
 CN_DIR = os.path.join(DIR, "assets", "audio", "words-cn")
-os.makedirs(EN_DIR, exist_ok=True)
-os.makedirs(CN_DIR, exist_ok=True)
 
 EN_VOICE = "en-US-GuyNeural"
 CN_VOICE = "zh-CN-YunxiNeural"
@@ -14,23 +17,48 @@ CN_VOICE = "zh-CN-YunxiNeural"
 def sanitize(w):
     return w.replace(" ", "-").replace("/", "-").replace("\\", "-")
 
-# 从 JS 数据文件提取词库
+# ===== 从 D30_PLAN 提取全部词 =====
 data_file = os.path.join(DIR, "word-bank-data.js")
 with open(data_file) as f:
     content = f.read()
 
-words = []  # [(en, cn), ...]
-for line in content.split("\n"):
-    m = re.match(r'\s+"([^"]+)"\s*:\s*"([^"]*)"\s*,?\s*$', line)
-    if m:
-        words.append((m.group(1), m.group(2)))
+m = re.search(r"const D30_PLAN = (\{.*?\});\n\nconst CAT_META", content, re.S)
+if not m:
+    print("❌ 无法从 word-bank-data.js 提取 D30_PLAN")
+    sys.exit(1)
 
-print(f"词库总量: {len(words)} 词")
+plan_text = m.group(1)
+result = subprocess.run(
+    ["node", "-e", f"const obj={plan_text}; console.log(JSON.stringify(obj));"],
+    capture_output=True, text=True
+)
+if result.returncode != 0:
+    print("❌ Node 解析 D30_PLAN 失败:", result.stderr)
+    sys.exit(1)
+
+plan = json.loads(result.stdout)
+
+# 收集唯一拼写 + 中文（同形词取第一次出现的中文）
+word_map = {}  # {safe_name: (en, cn)}
+for d in sorted(plan.keys(), key=int):
+    for item in plan[d]:
+        safe = sanitize(item["word"])
+        if safe not in word_map:
+            word_map[safe] = (item["word"], item["cn"])
+
+words = list(word_map.values())
+print(f"D30_PLAN 提取唯一拼写: {len(words)} 词")
 total = len(words) * 2
 
+# ===== 清空旧音频目录 =====
+print("清空旧音频目录...")
+for d in (EN_DIR, CN_DIR):
+    if os.path.isdir(d):
+        shutil.rmtree(d)
+    os.makedirs(d, exist_ok=True)
+print("✅ 旧音频已清理")
+
 def gen(voice, text, path, timeout=90):
-    if os.path.exists(path) and os.path.getsize(path) > 100:
-        return "skip"
     for _ in range(3):
         try:
             r = subprocess.run(
@@ -44,27 +72,26 @@ def gen(voice, text, path, timeout=90):
             time.sleep(3)
     return "fail"
 
-done, skipped, failed = 0, 0, []
-
-for en, cn in words:
+done, failed = 0, []
+for i, (en, cn) in enumerate(words, 1):
     safe = sanitize(en)
     en_path = os.path.join(EN_DIR, f"{safe}.mp3")
     cn_path = os.path.join(CN_DIR, f"{safe}.mp3")
 
     r = gen(EN_VOICE, en, en_path)
     if r == "ok": done += 1
-    elif r == "skip": skipped += 1
     else: failed.append(f"EN:{en}")
 
     r = gen(CN_VOICE, cn.replace("；", "，"), cn_path)
     if r == "ok": done += 1
-    elif r == "skip": skipped += 1
-    else: failed.append(f"CN:{cn}")
+    else: failed.append(f"CN:{en}")
 
-    if (done + skipped) % 100 == 0:
-        print(f"  进度: {done + skipped}/{total} (新生成{done}, 跳过{skipped})")
-    time.sleep(0.15)
+    if i % 50 == 0 or i == len(words):
+        print(f"  进度: {i}/{len(words)} 词 (已生成{done}/{total} 文件)")
 
-print(f"\n✅ 新生成:{done} ⏭ 跳过:{skipped} ❌ 失败:{len(failed)}")
+print(f"\n✅ 生成完成：{done}/{total} 个文件 ❌ 失败:{len(failed)}")
 if failed:
-    for f in failed: print(f"  - {f}")
+    for f in failed[:30]:
+        print(f"  - {f}")
+    if len(failed) > 30:
+        print(f"  ... 共{len(failed)}个失败")

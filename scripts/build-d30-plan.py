@@ -1,96 +1,101 @@
 #!/usr/bin/env python3
 """
-解析 gaokao-800-high-frequency-words.md，生成 30 天分配方案。
-输出：
-  1. D30_PLAN  JS 对象（899个课程条目，保留同形词与原始日顺序）
-  2. WORD_BANK  JS 对象（全量词库，按类别）
+解析「陈浩谦高考英语1200高频词终极版_人工修订版.md」，生成 30 天分配方案。
 
-每个课程条目使用独立 ID，避免同形词在不同日期出现时被错误去重。
+新词库已人工按 Day 01-30 分好，每天 40 项（36词+4短语），脚本直接采用：
+  1. D30_PLAN  JS 对象（1200个课程条目，保留人工日顺序）
+  2. CAT_META  JS 对象（verb/noun/adj_adv/phrase/prep/conj，其余边缘词性不显示）
+  3. WORD_BANK JS 对象（全量词库，用于音频脚本提取）
+
+词性映射规则（人工确认）：
+  - word + v.           → verb     （动词）
+  - word + n.           → noun     （名词）
+  - word + adj./adv.    → adj_adv  （形副）
+  - phrase / v. phr. / prep. phr. / fixed struct. → phrase（短语）
+  - word + prep.        → prep     （介词，新增标签）
+  - word + conj.        → conj     （连词，新增标签）
+  - 其余边缘词性（num./det./n./v./adj./n.等）→ 不显示词性（cat 置空）
+
+每个课程条目使用独立 ID，dayNN-序数-单词，与旧格式保持一致。
 """
 
-import re, json, random, os
+import re, json, os
 
 DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MD = os.path.join(DIR, "vocabulary", "gaokao-800-high-frequency-words.md")
+MD = os.path.join(DIR, "陈浩谦高考英语1200高频词终极版_人工修订版.md")
 
 with open(MD, "r") as f:
     content = f.read()
 
-# ===== 解析 Markdown 表格 =====
-sections = re.split(r"\n## ", content)
-categories = {}  # { cat_key: { "en": "cn", ... } }
-cat_keys = []
+# ===== 词性映射表 =====
+def map_pos(pos: str) -> str:
+    """将 POS/Type 标注映射到系统分类（空串=不显示词性）。
 
-for sec in sections:
-    m = re.match(r"([一二三四五])、(.+)", sec)
+    映射规则（人工确认）：
+      - v.  → verb（动词）
+      - n.  → noun（名词）
+      - adj./adv. → adj_adv（形副）
+      - prep. → prep（介词）
+      - conj. → conj（连词）
+      - 其余边缘词性（n./v.、adj./n.、num.、det.、adj./v.、n./adj.等）→ 不显示词性
+      - 短语类（Type=phrase）在解析循环中统一归 phrase
+    """
+    pos = pos.strip()
+    if pos in ("prep.",):
+        return "prep"
+    if pos in ("conj.",):
+        return "conj"
+    if pos in ("n.",):
+        return "noun"
+    if pos in ("v.",):
+        return "verb"
+    if pos in ("adj.", "adv."):
+        return "adj_adv"
+    # 其余边缘词性均不显示词性
+    return ""
+
+# ===== 解析 Markdown =====
+days = re.split(r"\n## ", content)
+d30 = {d: [] for d in range(1, 31)}
+
+for sec in days:
+    m = re.match(r"Day (\d+)", sec)
     if not m:
         continue
-    num, title = m.group(1), m.group(2)
-
-    if "动词短语" in title:
-        key = "phrase"
-    elif "写作" in title:
-        key = "writing"  # 不参与30天分配
-    elif "动词" in title:
-        key = "verb"
-    elif "名词" in title:
-        key = "noun"
-    elif "形容词" in title:
-        key = "adj_adv"
-    else:
+    day = int(m.group(1))
+    if day < 1 or day > 30:
         continue
 
-    entries = {}
-    for line in sec.split("\n"):
-        line = line.strip()
-        # 匹配表格行: | N | word | definition |
-        cell = re.match(r"^\|\s*\d*\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|", line)
-        if cell:
-            en = cell.group(1).strip()
-            cn = cell.group(2).strip()
-            # 清理中文分隔符
-            cn = cn.replace("；", "，")
-            entries[en] = cn
+    # 匹配表格行: | Order | Item | 中文 | Type | POS/Type | ... |
+    rows = re.findall(r"^\|\s*\d+\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(word|phrase)\s*\|\s*(.+?)\s*\|", sec, re.M)
+    for item, cn, typ, pos in rows:
+        item = item.strip()
+        cn = cn.strip().replace("；", "，")
+        pos = pos.strip()
 
-    if entries:
-        categories[key] = entries
-        cat_keys.append(key)
+        if typ == "phrase":
+            cat = "phrase"
+        else:
+            cat = map_pos(pos)
 
-# 验证
-total = sum(len(v) for k, v in categories.items() if k != "writing")
-print(f"解析完成：{', '.join(f'{k}({len(v)})' for k, v in categories.items())}")
-print(f"30天学习词总量（不含写作替换）：{total}")
+        d30[day].append({"word": item, "cn": cn, "cat": cat, "pos": pos})
 
-# ===== 30 天分配（轮询算法，自动处理余数） =====
-random.seed(42)
-total_days = 30
+# ===== 验证 =====
+total = sum(len(d30[d]) for d in d30)
+print(f"解析完成：共 {total} 个课程条目")
+print(f"每天词数：min={min(len(d30[d]) for d in d30)}, max={max(len(d30[d]) for d in d30)}")
 
-# 每个类别分别打乱后，轮流投放到30天
-d30 = {d: [] for d in range(1, total_days + 1)}
-
-for cat in cat_keys:
-    if cat == "writing":
-        continue
-    words = list(categories[cat].items())  # [(en, cn), ...]
-    random.shuffle(words)
-    # 轮流投放到30天
-    for i, (en, cn) in enumerate(words):
-        day = (i % total_days) + 1
-        d30[day].append({"word": en, "cn": cn, "cat": cat})
-
-# 验证：四个类别分别轮询，因此每天为29-31个课程条目
-counts = [len(d30[d]) for d in range(1, 31)]
-print(f"每天词数：min={min(counts)}, max={max(counts)}, avg={sum(counts)/30:.0f}")
-
-total_words = sum(counts)
-ideal = total_words / total_days
-print(f"总词量：{total_words}，每天理想值：{ideal}")
-print("✅ 轮询分配完成")
+cat_counts = {}
+for d in d30:
+    for entry in d30[d]:
+        cat = entry["cat"] or "none"
+        cat_counts[cat] = cat_counts.get(cat, 0) + 1
+print(f"分类分布：{cat_counts}")
 
 # ===== 输出 JS 代码 =====
 out = []
 out.append("// ===== 自动生成，请勿手动编辑 =====")
-out.append("// 来源：vocabulary/gaokao-800-high-frequency-words.md")
+out.append("// 来源：陈浩谦高考英语1200高频词终极版_人工修订版.md（人工修订，唯一数据源）")
 out.append("// 生成脚本：scripts/build-d30-plan.py")
 out.append("")
 
@@ -118,19 +123,24 @@ for d in range(1, 31):
 out.append("};")
 out.append("")
 
-# WORD_BANK
+# CAT_META（含新增的 prep/conj，none 不显示）
 out.append("const CAT_META = {")
 out.append('  verb:    { label: "🔴 动词", emoji: "🔴" },')
 out.append('  noun:    { label: "🔵 名词", emoji: "🔵" },')
 out.append('  adj_adv: { label: "🟢 形副", emoji: "🟢" },')
 out.append('  phrase:  { label: "🟣 短语", emoji: "🟣" },')
+out.append('  prep:    { label: "🟡 介词", emoji: "🟡" },')
+out.append('  conj:    { label: "🟠 连词", emoji: "🟠" },')
 out.append("};")
 out.append("")
 out.append("const WORD_BANK = {")
-for cat in ["verb", "noun", "adj_adv", "phrase"]:
+for cat in ["verb", "noun", "adj_adv", "phrase", "prep", "conj"]:
     out.append(f"  {cat}: {{")
-    for en, cn in categories[cat].items():
-        out.append(f"    {json.dumps(en, ensure_ascii=False)}: {json.dumps(cn, ensure_ascii=False)},")
+    for entry in d30[d] if False else []:
+        pass
+    # 从所有天收集该 cat 的词
+    for entry in [e for d in d30 for e in d30[d] if e["cat"] == cat]:
+        out.append(f"    {json.dumps(entry['word'], ensure_ascii=False)}: {json.dumps(entry['cn'], ensure_ascii=False)},")
     out.append("  },")
 out.append("};")
 

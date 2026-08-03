@@ -24,7 +24,8 @@
 | 文件 | 用途 | 状态 |
 |------|------|:--:|
 | `word-rain.html` | 🧠 单词轰炸主程序（v4.0） | ✅ |
-| `word-bank-data.js` | 900词词库 + 30天分配方案 | ✅ 自动生成 |
+| `word-bank-data.js` | 1200词词库 + 30天分配方案 | ✅ 自动生成 |
+| `陈浩谦高考英语1200高频词终极版_人工修订版.md` | 📋 人工修订词库（唯一数据源） | ✅ |
 | `word-rain-standalone.html` | 独立版（无 MP3 依赖，纯 TTS） | ✅ |
 | `word-rain-backup.html` | 备份版本 | 📦 |
 
@@ -73,11 +74,16 @@
 ### 30天词库
 
 - 脚本：`scripts/build-d30-plan.py`（一次性生成，已执行）
-- 源数据：`vocabulary/gaokao-800-high-frequency-words.md`
+- 源数据：`陈浩谦高考英语1200高频词终极版_人工修订版.md`（人工修订版，唯一数据源）
 - 输出：`word-bank-data.js`（含 WORD_BANK / D30_PLAN / CAT_META）
-- 范围：类别1-4共899个课程条目、871个唯一拼写（动词200 + 名词270 + 形副330 + 短语99）
-- 分配算法：轮询（round-robin），每类均匀分布到30天，每天约30词
+- 范围：共1200个课程条目、1200个唯一拼写（动词261 + 名词552 + 形副231 + 短语100 + 介词16 + 连词4 + 边缘36不显示词性）
+- 分配方式：直接采用人工修订版的 Day 01-30 分区，每天固定40项（36词+4短语），保留人工排序
 - 每个 D30_PLAN 条目包含 `id / word / cn / cat / day / order`
+- 词性映射规则：
+  - `v.` → verb，`n.` → noun，`adj./adv.` → adj_adv
+  - `prep.` → prep（介词标签），`conj.` → conj（连词标签）
+  - 短语类（v. phr. / prep. phr. / fixed struct. 等）→ phrase
+  - 其余边缘词性（num. / det. / 双重词性等）→ 不显示词性（cat 置空）
 
 ### 关键参数
 
@@ -136,9 +142,9 @@ Level 3 🥉  浏览器 speechSynthesis TTS
 ## 五、数据流
 
 ```
-vocabulary/gaokao-800-high-frequency-words.md  ← 唯一数据源（950词）
-    ↓ scripts/build-d30-plan.py（解析+分配）
-word-bank-data.js                             ← 30天词库（899词，自动生成）
+陈浩谦高考英语1200高频词终极版_人工修订版.md  ← 唯一数据源（1200项，人工分好30天）
+    ↓ scripts/build-d30-plan.py（解析+词性映射，保留Day分区）
+word-bank-data.js                             ← 30天词库（1200词，自动生成）
     ↓ word-rain.html 读取
 localStorage                                    ← 进度 + 间隔复习数据
 ```
@@ -156,7 +162,7 @@ python3 -m http.server 8080 --bind 0.0.0.0
 
 # 方式2：Python 3.12 运行脚本
 python3.12 scripts/build-d30-plan.py            # 重新生成词库
-python3.12 scripts/generate-all-word-audio.py   # 补全单词MP3
+python3.12 scripts/generate-all-word-audio.py   # 全量生成单词MP3（清空旧音频后重新生成）
 python3.12 scripts/generate-feedback-audio.py   # 重新生成反馈语音
 ```
 
@@ -173,7 +179,7 @@ python3.12 scripts/generate-feedback-audio.py   # 重新生成反馈语音
 | 快速识别自适应防碰撞铺屏 | 优先填补空白并避开HUD、底栏和已有中英文；外圈放不下时回退内圈 |
 | 严格1-2-4-7-15，不乘ease | 全自动场景下规则透明、日期可预测 |
 | 拼读→自动提取→快速识别 | 避免只靠密集重复造成熟悉感错觉 |
-| 课程条目ID而非英文拼写 | 保持与高频词系统899个条目逐日一致 |
+| 课程条目ID而非英文拼写 | 同形词可在不同课程日分别学习和复习 |
 | 中文声线绝不用女声 | 维持声线一致性 |
 | 淘汰游戏化方案（射箭/跑酷/马厘奥） | 游戏引擎复杂度压倒学习本身 |
 
@@ -191,6 +197,6 @@ python3.12 scripts/generate-feedback-audio.py   # 重新生成反馈语音
 
 ## 九、已知待办
 
-- [x] 871个唯一拼写均有EN+CN MP3；899个课程条目按拼写复用
+- [x] 1200个唯一拼写均有EN+CN MP3；全量重新生成
 - [ ] 如需跨设备使用，手动导出/导入进度（当前保持单机简洁）
 - [ ] 声线回退测试（MP3缺失时TTS是否正常切换）
