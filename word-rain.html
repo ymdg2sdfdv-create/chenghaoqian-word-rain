@@ -435,6 +435,8 @@ setMuted(muted);
 const STORE_KEY="wordrain_v3";
 const SCHEMA_VERSION=3;
 const BANK_VERSION="1200-v2.0-2026-08-03";
+const entryKey=(cycle,itemId)=>`${cycle}:${itemId}`;
+const completionKey=(cycle,day)=>`${cycle}:${day}`;
 function localDateString(date=new Date()){
   const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,"0"),d=String(date.getDate()).padStart(2,"0");
   return `${y}-${m}-${d}`;
@@ -446,18 +448,20 @@ function getToday(){
 function addDays(dateString,days){ const [y,m,d]=dateString.split("-").map(Number),date=new Date(y,m-1,d+days); return localDateString(date); }
 
 function emptyStore(){
-  return {version:SCHEMA_VERSION,bankVersion:BANK_VERSION,courseDay:1,lastAdvancedDate:null,entries:{},dayCompletion:{}};
+  return {version:SCHEMA_VERSION,bankVersion:BANK_VERSION,cycle:1,courseDay:1,lastAdvancedDate:null,entries:{},dayCompletion:{}};
 }
 function isPlainObject(value){return !!value&&typeof value==="object"&&!Array.isArray(value);}
 function isDateString(value){return typeof value==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(value);}
-function normalizeEntry(id,record){
-  const item=ITEM_BY_ID.get(id);
+function normalizeEntry(itemId,record,cycle){
+  const item=ITEM_BY_ID.get(itemId);
   if(!item||!isPlainObject(record)||!isDateString(record.learnedDate))return null;
   const completed=[...new Set(Array.isArray(record.completedReviewOffsets)?record.completedReviewOffsets:[])]
     .filter(offset=>CONFIG.reviewOffsets.includes(offset)).sort((a,b)=>a-b);
   const next=record.nextReviewOffset==null?null:Number(record.nextReviewOffset);
   if(next!==null&&!CONFIG.reviewOffsets.includes(next))return null;
   return {
+    itemId,
+    cycle,
     word:item.word,
     courseDay:item.day,
     learnedDate:record.learnedDate,
@@ -470,14 +474,24 @@ function normalizeStore(parsed){
   if(!isPlainObject(parsed)||parsed.version!==SCHEMA_VERSION||parsed.bankVersion!==BANK_VERSION||
      !isPlainObject(parsed.entries)||!isPlainObject(parsed.dayCompletion))throw new Error("incompatible schema");
   const normalized=emptyStore();
+  const hasCycle=Number.isInteger(Number(parsed.cycle))&&Number(parsed.cycle)>=1;
+  normalized.cycle=hasCycle?Number(parsed.cycle):1;
   normalized.courseDay=Math.min(30,Math.max(1,Number(parsed.courseDay)||1));
   normalized.lastAdvancedDate=isDateString(parsed.lastAdvancedDate)?parsed.lastAdvancedDate:null;
-  for(const [id,record] of Object.entries(parsed.entries)){
-    const clean=normalizeEntry(id,record);if(clean)normalized.entries[id]=clean;
+  for(const [storedKey,record] of Object.entries(parsed.entries)){
+    const recordCycle=hasCycle?Number(record?.cycle):1;
+    if(hasCycle&&(!Number.isInteger(recordCycle)||recordCycle<1))continue;
+    const itemId=hasCycle?record?.itemId:storedKey;
+    if(hasCycle&&storedKey!==entryKey(recordCycle,itemId))continue;
+    const clean=normalizeEntry(itemId,record,recordCycle);
+    if(clean)normalized.entries[entryKey(recordCycle,itemId)]=clean;
   }
-  for(const [day,date] of Object.entries(parsed.dayCompletion)){
-    const dayNumber=Number(day);
-    if(Number.isInteger(dayNumber)&&dayNumber>=1&&dayNumber<=30&&isDateString(date))normalized.dayCompletion[String(dayNumber)]=date;
+  for(const [storedKey,date] of Object.entries(parsed.dayCompletion)){
+    const parts=hasCycle?storedKey.split(":"):["1",storedKey];
+    const cycleNumber=Number(parts[0]),dayNumber=Number(parts[1]);
+    if(parts.length===2&&Number.isInteger(cycleNumber)&&cycleNumber>=1&&Number.isInteger(dayNumber)&&dayNumber>=1&&dayNumber<=30&&isDateString(date)){
+      normalized.dayCompletion[completionKey(cycleNumber,dayNumber)]=date;
+    }
   }
   return normalized;
 }
@@ -492,26 +506,38 @@ function saveStore(value=progress){try{localStorage.setItem(STORE_KEY,JSON.strin
 let progress=loadStore();
 
 function syncCourseDay(){
-  const today=getToday(); let day=progress.courseDay;
-  while(day<30&&progress.dayCompletion[String(day)]&&progress.dayCompletion[String(day)]<today)day++;
-  if(day!==progress.courseDay){progress.courseDay=day;progress.lastAdvancedDate=today;saveStore();}
+  const today=getToday();let changed=false;
+  while(true){
+    const completed=progress.dayCompletion[completionKey(progress.cycle,progress.courseDay)];
+    if(!completed||completed>=today)break;
+    if(progress.courseDay<30)progress.courseDay++;
+    else{progress.cycle++;progress.courseDay=1;}
+    progress.lastAdvancedDate=today;changed=true;
+  }
+  if(changed)saveStore();
 }
 function markLearned(item){
-  if(progress.entries[item.id])return;
+  const id=entryKey(progress.cycle,item.id);
+  if(progress.entries[id])return;
   const learnedDate=getToday(),nextReviewOffset=CONFIG.reviewOffsets[0];
-  progress.entries[item.id]={word:item.word,courseDay:item.day,learnedDate,completedReviewOffsets:[],nextReviewOffset,nextReviewDate:addDays(learnedDate,nextReviewOffset)};
+  progress.entries[id]={itemId:item.id,cycle:progress.cycle,word:item.word,courseDay:item.day,learnedDate,completedReviewOffsets:[],nextReviewOffset,nextReviewDate:addDays(learnedDate,nextReviewOffset)};
   saveStore();
 }
-function markReviewed(item){
-  const record=progress.entries[item.id]; if(!record||record.nextReviewOffset==null)return;
+function markReviewed(entry){
+  const record=progress.entries[entry.instanceId];
+  if(!record||record.nextReviewOffset==null||record.nextReviewOffset!==entry.offset)return;
   const current=record.nextReviewOffset;
   if(!record.completedReviewOffsets.includes(current))record.completedReviewOffsets.push(current);
   const index=CONFIG.reviewOffsets.indexOf(current),next=CONFIG.reviewOffsets[index+1]??null;
-  record.nextReviewOffset=next; record.nextReviewDate=next?addDays(record.learnedDate,next):null; saveStore();
+  record.nextReviewOffset=next;record.nextReviewDate=next?addDays(record.learnedDate,next):null;saveStore();
 }
 function dueReviews(){
   const today=getToday();
-  return Object.entries(progress.entries).filter(([,r])=>r.nextReviewDate&&r.nextReviewDate<=today).map(([id,r])=>({item:ITEM_BY_ID.get(id),kind:"review",offset:r.nextReviewOffset,dueDate:r.nextReviewDate})).filter(x=>x.item).sort((a,b)=>a.dueDate.localeCompare(b.dueDate)||a.item.day-b.item.day||a.item.order-b.item.order);
+  return Object.entries(progress.entries)
+    .filter(([,record])=>record.nextReviewDate&&record.nextReviewDate<=today)
+    .map(([instanceId,record])=>({instanceId,item:ITEM_BY_ID.get(record.itemId),kind:"review",offset:record.nextReviewOffset,dueDate:record.nextReviewDate}))
+    .filter(task=>task.item)
+    .sort((a,b)=>a.dueDate.localeCompare(b.dueDate)||a.item.day-b.item.day||a.item.order-b.item.order);
 }
 
 /* ---------------- Session ---------------- */
@@ -520,7 +546,9 @@ let state={active:false,runToken:0,pauseWaiters:[],queue:[],queueIdx:0,reviewCou
 function buildSession(mode="normal"){
   syncCourseDay(); const day=progress.courseDay;
   const reviews=mode==="normal"?dueReviews():[];
-  const newItems=mode==="redo"?(D30_PLAN[day]||[]).map(item=>({item,kind:"redo",offset:null})):(D30_PLAN[day]||[]).filter(item=>!progress.entries[item.id]).map(item=>({item,kind:"new",offset:null}));
+  const newItems=mode==="redo"
+    ?(D30_PLAN[day]||[]).map(item=>({item,kind:"redo",offset:null}))
+    :(D30_PLAN[day]||[]).filter(item=>!progress.entries[entryKey(progress.cycle,item.id)]).map(item=>({item,kind:"new",offset:null}));
   state.queue=[...reviews,...newItems]; state.queueIdx=0; state.reviewCount=reviews.length; state.newCount=newItems.length;
   state.completedReview=0;state.completedNew=0;state.completedRedo=0;state.mode=mode;
 }
@@ -647,7 +675,7 @@ async function runOneSpellRound(item,round,total,token){
 
 async function finishCurrentItem(token){
   const entry=state.current;
-  if(entry.kind==="review"){markReviewed(entry.item);state.completedReview++;}
+  if(entry.kind==="review"){markReviewed(entry);state.completedReview++;}
   else if(entry.kind==="new"){markLearned(entry.item);state.completedNew++;}
   else state.completedRedo++;
   playSound("correct");state.queueIdx++;updateOverallProgress();
@@ -683,8 +711,11 @@ async function finishSession(token){
   if(token!==state.runToken)return;
   state.active=false;central.style.display="none";phaseLabel.textContent="";fillBar.style.width="100%";
   if(state.mode==="normal"&&state.completedNew>0){
-    const day=progress.courseDay,allDone=(D30_PLAN[day]||[]).every(item=>progress.entries[item.id]);
-    if(allDone&&!progress.dayCompletion[String(day)]){progress.dayCompletion[String(day)]=getToday();progress.lastAdvancedDate=getToday();saveStore();}
+    const day=progress.courseDay,key=completionKey(progress.cycle,day);
+    const allDone=(D30_PLAN[day]||[]).every(item=>progress.entries[entryKey(progress.cycle,item.id)]);
+    if(allDone&&!progress.dayCompletion[key]){
+      progress.dayCompletion[key]=getToday();progress.lastAdvancedDate=getToday();saveStore();
+    }
   }
   playSound("finish");showComplete();await playFeedback("complete.mp3");
 }
@@ -699,8 +730,7 @@ function togglePause(){
 /* ---------------- Overlay UI ---------------- */
 function showWelcome(){
   invalidateRun();buildSession("normal");const day=progress.courseDay,today=getToday();
-  const completedToday=progress.dayCompletion[String(day)]===today;
-  const courseComplete=day===30&&progress.dayCompletion["30"];
+  const completedToday=progress.dayCompletion[completionKey(progress.cycle,day)]===today;
   const motto=completedToday?"今天的课程已经完成，重复巩固不会推进天数。":"先复习到期词，再学习今天的新词。";
   welcomeContent.innerHTML=`<div class="overlay-card welcome-card">
     <div class="welcome-art" aria-hidden="true"><img src="cover-hao-qian.png" alt=""></div>
@@ -715,8 +745,8 @@ function showWelcome(){
         <div class="stat review"><div class="num">${state.reviewCount}</div><div class="lbl">到期复习</div></div>
         <div class="stat new"><div class="num">${state.newCount}</div><div class="lbl">今日新词</div></div>
       </div>
-      <div class="motto">${courseComplete?"30 天计划已经完成。":motto}</div>
-      ${completedToday||courseComplete?`<button class="secondary" onclick="startSession('redo')">重温第 ${day} 天词汇</button>`:`<button onclick="startSession('normal')">开始今日早读</button>`}
+      <div class="motto">${motto}</div>
+      ${completedToday?`<button class="secondary" onclick="startSession('redo')">重温第 ${day} 天词汇</button>`:`<button onclick="startSession('normal')">开始今日早读</button>`}
       <button type="button" class="reset-link" onclick="resetAll()" aria-label="重置所有学习进度" title="重置所有学习进度">重置进度</button>
     </div>
   </div>`;
