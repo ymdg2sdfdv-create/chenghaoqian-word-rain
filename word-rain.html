@@ -432,7 +432,9 @@ function setMuted(value){
 setMuted(muted);
 
 /* ---------------- Versioned progress and strict review ---------------- */
-const STORE_KEY="wordrain_v2";
+const STORE_KEY="wordrain_v3";
+const SCHEMA_VERSION=3;
+const BANK_VERSION="1200-v2.0-2026-08-03";
 function localDateString(date=new Date()){
   const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,"0"),d=String(date.getDate()).padStart(2,"0");
   return `${y}-${m}-${d}`;
@@ -443,30 +445,48 @@ function getToday(){
 }
 function addDays(dateString,days){ const [y,m,d]=dateString.split("-").map(Number),date=new Date(y,m-1,d+days); return localDateString(date); }
 
-function emptyStore(){ return {version:2,courseDay:1,lastAdvancedDate:null,entries:{},dayCompletion:{}}; }
-function migrateLegacy(){
-  const next=emptyStore();
-  try { next.courseDay=Math.min(30,Math.max(1,parseInt(localStorage.getItem("wordrain_day")||"1",10))); } catch (_) {}
-  let legacy={}; try{legacy=JSON.parse(localStorage.getItem("wordrain_sr")||"{}");}catch(_){}
-  for(const [word,record] of Object.entries(legacy)){
-    const matches=ITEMS_BY_WORD.get(word)||[];
-    if(matches.length!==1)continue;
-    const item=matches[0],learnedDate=record.learnedDate||getToday();
-    const reviewCount=Math.min((record.reviews||[]).length,CONFIG.reviewOffsets.length);
-    const completedReviewOffsets=CONFIG.reviewOffsets.slice(0,reviewCount);
-    const nextReviewOffset=CONFIG.reviewOffsets[reviewCount]??null;
-    next.entries[item.id]={word:item.word,courseDay:item.day,learnedDate,completedReviewOffsets,nextReviewOffset,nextReviewDate:nextReviewOffset?addDays(learnedDate,nextReviewOffset):null};
+function emptyStore(){
+  return {version:SCHEMA_VERSION,bankVersion:BANK_VERSION,courseDay:1,lastAdvancedDate:null,entries:{},dayCompletion:{}};
+}
+function isPlainObject(value){return !!value&&typeof value==="object"&&!Array.isArray(value);}
+function isDateString(value){return typeof value==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(value);}
+function normalizeEntry(id,record){
+  const item=ITEM_BY_ID.get(id);
+  if(!item||!isPlainObject(record)||!isDateString(record.learnedDate))return null;
+  const completed=[...new Set(Array.isArray(record.completedReviewOffsets)?record.completedReviewOffsets:[])]
+    .filter(offset=>CONFIG.reviewOffsets.includes(offset)).sort((a,b)=>a-b);
+  const next=record.nextReviewOffset==null?null:Number(record.nextReviewOffset);
+  if(next!==null&&!CONFIG.reviewOffsets.includes(next))return null;
+  return {
+    word:item.word,
+    courseDay:item.day,
+    learnedDate:record.learnedDate,
+    completedReviewOffsets:completed,
+    nextReviewOffset:next,
+    nextReviewDate:next===null?null:addDays(record.learnedDate,next),
+  };
+}
+function normalizeStore(parsed){
+  if(!isPlainObject(parsed)||parsed.version!==SCHEMA_VERSION||parsed.bankVersion!==BANK_VERSION||
+     !isPlainObject(parsed.entries)||!isPlainObject(parsed.dayCompletion))throw new Error("incompatible schema");
+  const normalized=emptyStore();
+  normalized.courseDay=Math.min(30,Math.max(1,Number(parsed.courseDay)||1));
+  normalized.lastAdvancedDate=isDateString(parsed.lastAdvancedDate)?parsed.lastAdvancedDate:null;
+  for(const [id,record] of Object.entries(parsed.entries)){
+    const clean=normalizeEntry(id,record);if(clean)normalized.entries[id]=clean;
   }
-  return next;
+  for(const [day,date] of Object.entries(parsed.dayCompletion)){
+    const dayNumber=Number(day);
+    if(Number.isInteger(dayNumber)&&dayNumber>=1&&dayNumber<=30&&isDateString(date))normalized.dayCompletion[String(dayNumber)]=date;
+  }
+  return normalized;
 }
 function loadStore(){
   const raw=localStorage.getItem(STORE_KEY);
-  if(!raw){const migrated=migrateLegacy();saveStore(migrated);return migrated;}
+  if(!raw){const fresh=emptyStore();saveStore(fresh);return fresh;}
   try{
-    const parsed=JSON.parse(raw);
-    if(parsed.version!==2||!parsed.entries||!parsed.dayCompletion)throw new Error("invalid schema");
-    parsed.courseDay=Math.min(30,Math.max(1,Number(parsed.courseDay)||1)); return parsed;
-  }catch(_){try{localStorage.setItem(`${STORE_KEY}_corrupt_${Date.now()}`,raw);}catch(__){} const fresh=emptyStore();saveStore(fresh);return fresh;}
+    const normalized=normalizeStore(JSON.parse(raw));saveStore(normalized);return normalized;
+  }catch(_){try{localStorage.setItem(`${STORE_KEY}_incompatible_${Date.now()}`,raw);}catch(__){} const fresh=emptyStore();saveStore(fresh);return fresh;}
 }
 function saveStore(value=progress){try{localStorage.setItem(STORE_KEY,JSON.stringify(value));}catch(_){} }
 let progress=loadStore();
@@ -718,7 +738,7 @@ function showComplete(){
 
 function resetAll(){
   if(!confirm("确定清除陈浩谦的全部学习和复习进度吗？"))return;
-  invalidateRun();[STORE_KEY,"wordrain_day","wordrain_sr"].forEach(key=>localStorage.removeItem(key));progress=emptyStore();saveStore();showWelcome();
+  invalidateRun();localStorage.removeItem(STORE_KEY);progress=emptyStore();saveStore();showWelcome();
 }
 
 /* ---------------- Canvas word rain ---------------- */
