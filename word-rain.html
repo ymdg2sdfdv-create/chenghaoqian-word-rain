@@ -580,21 +580,6 @@ async function playReveal(item,token){
   await speakCN(item); return gate(token);
 }
 
-async function runSpellRounds(item,rounds,token){
-  state.pinned=[];
-  for(let round=0;round<rounds;round++){
-    const letters=[...item.word];
-    for(let i=0;i<letters.length;i++){
-      if(!(await gate(token)))return false;
-      showLetters(item,letters.slice(0,i+1).join(""));playSound("beat");speakEN(letters[i],true);
-      if(!(await stepDelay(CONFIG.letterMs,token)))return false;
-    }
-    if(!(await playReveal(item,token)))return false;
-    state.pinned.push(round+1);rebuildPinned(item,rounds);
-  }
-  return true;
-}
-
 async function runRecallRounds(item,rounds,token){
   for(let round=0;round<rounds;round++){
     if(!(await gate(token)))return false;
@@ -617,6 +602,18 @@ async function runRapid(item,count,token){
   return true;
 }
 
+/* ---------------- Spelling units ---------------- */
+function buildSpellingSteps(item){
+  const word=String(item?.word||"");
+  const pattern=item?.cat==="phrase"?/[A-Za-z]+/g:/[A-Za-z]/g;
+  const matches=[...word.matchAll(pattern)];
+  return matches.map((match,index)=>({
+    spokenText:match[0],
+    visibleText:word.slice(0,matches[index+1]?.index??word.length),
+  }));
+}
+/* ---------------- Spelling playback ---------------- */
+
 async function runCurrentItem(token){
   const entry=state.current,item=entry.item,config=itemConfig(entry);
   state.instances=[];state.pinned=[];state.rapidBoxes=[];updateHeader(entry);updateOverallProgress();
@@ -631,11 +628,18 @@ async function runCurrentItem(token){
 }
 
 async function runOneSpellRound(item,round,total,token){
-  const letters=[...item.word];
-  for(let i=0;i<letters.length;i++){
+  const steps=buildSpellingSteps(item),isPhrase=item.cat==="phrase";
+  for(const step of steps){
     if(!(await gate(token)))return false;
-    showLetters(item,letters.slice(0,i+1).join(""));playSound("beat");speakEN(letters[i],true);
-    if(!(await stepDelay(CONFIG.letterMs,token)))return false;
+    showLetters(item,step.visibleText);playSound("beat");visualPulse("beat");
+    if(isPhrase){
+      const spoken=await fallbackTTS(step.spokenText,"en-US");
+      if(!(await gate(token)))return false;
+      if(!spoken&&!(await stepDelay(CONFIG.silentFlashMs,token)))return false;
+    }else{
+      speakEN(step.spokenText,true);
+      if(!(await stepDelay(CONFIG.letterMs,token)))return false;
+    }
   }
   if(!(await playReveal(item,token)))return false;
   state.pinned.push(round+1);rebuildPinned(item,total);return true;
