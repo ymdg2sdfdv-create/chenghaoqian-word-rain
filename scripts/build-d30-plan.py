@@ -145,9 +145,14 @@ for cat in ["verb", "noun", "adj_adv", "phrase", "prep", "conj"]:
 out.append("};")
 
 # 写入文件
-output_path = os.path.join(DIR, "word-bank-data.js")
-with open(output_path, "w") as f:
-    f.write("\n".join(out))
-
-print(f"✅ JS 数据文件已写入：{output_path}")
-print(f"   文件大小：{os.path.getsize(output_path) / 1024:.1f} KB")
+generated_content = "\n".join(out) + "\n"
+output_paths = [
+    os.path.join(DIR, "word-bank-data.js"),
+    os.path.join(DIR, "backups", "2026-08-03-v5-1200words", "word-bank-data.js"),
+]
+for output_path in output_paths:
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, "w") as f:
+        f.write(generated_content)
+    print(f"✅ JS 数据文件已同步：{output_path}")
+    print(f"   文件大小：{os.path.getsize(output_path) / 1024:.1f} KB")

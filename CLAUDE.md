@@ -26,8 +26,6 @@
 | `word-rain.html` | 🧠 单词轰炸主程序（v4.0） | ✅ |
 | `word-bank-data.js` | 1200词词库 + 30天分配方案 | ✅ 自动生成 |
 | `陈浩谦高考英语1200高频词终极版_人工修订版.md` | 📋 人工修订词库（唯一数据源） | ✅ |
-| `word-rain-standalone.html` | 独立版（无 MP3 依赖，纯 TTS） | ✅ |
-| `word-rain-backup.html` | 备份版本 | 📦 |
 
 ---
 
