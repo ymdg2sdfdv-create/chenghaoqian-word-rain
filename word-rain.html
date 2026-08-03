@@ -661,7 +661,7 @@ async function runOneSpellRound(item,round,total,token){
     if(!(await gate(token)))return false;
     showLetters(item,step.visibleText);playSound("beat");visualPulse("beat");
     if(isPhrase){
-      const spoken=await fallbackTTS(step.spokenText,"en-US");
+      const spoken=await speakEN(step.spokenText);
       if(!(await gate(token)))return false;
       if(!spoken&&!(await stepDelay(CONFIG.silentFlashMs,token)))return false;
     }else{
