@@ -1,0 +1,3762 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "canonical": "idea",
+      "surfaceForms": [
+        "ideas"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "想法；主意"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 1,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::41::A::s02::ideas",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 41,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "ideas",
+          "sentence": "Some of our memories are funny, especially from the early years when our children were little.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "idea",
+        "rank": 69,
+        "frequency": 125,
+        "variants": [
+          "ideas"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day06-10-idea",
+            "word": "idea",
+            "cn": "想法",
+            "pos": "n.",
+            "day": 6,
+            "order": 10
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "joke",
+      "surfaceForms": [
+        "jokes"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "玩笑；笑话"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 2,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::41::B::s02::jokes",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 41,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "jokes",
+          "sentence": "Some of our memories are funny, especially from the early years when our children were little.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "joke",
+        "rank": 1531,
+        "frequency": 10,
+        "variants": [
+          "jokes",
+          "joked",
+          "joker"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "memory",
+      "surfaceForms": [
+        "memories"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "记忆；回忆"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 3,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::41::C::s02::memories",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 41,
+          "optionLetter": "C",
+          "role": "correct",
+          "surface": "memories",
+          "sentence": "Some of our memories are funny, especially from the early years when our children were little.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "memory",
+        "rank": 990,
+        "frequency": 19,
+        "variants": [
+          "memories"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "discovery",
+      "surfaceForms": [
+        "discoveries"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "发现"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 4,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::41::D::s02::discoveries",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 41,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "discoveries",
+          "sentence": "Some of our memories are funny, especially from the early years when our children were little.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "discovery",
+        "rank": 1179,
+        "frequency": 15,
+        "variants": [
+          "discoveries"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "camp",
+      "surfaceForms": [
+        "camped"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "露营"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 5,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::42::A::s03::camped",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 42,
+          "optionLetter": "A",
+          "role": "correct",
+          "surface": "camped",
+          "sentence": "Once, we camped along Chalk Creek.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "camp",
+        "rank": 377,
+        "frequency": 46,
+        "variants": [
+          "camping",
+          "camped",
+          "camps",
+          "camper"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day04-17-camp",
+            "word": "camp",
+            "cn": "露营",
+            "pos": "v.",
+            "day": 4,
+            "order": 17
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "drive",
+      "surfaceForms": [
+        "drove"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "开车"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 6,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::42::B::s03::drove",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 42,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "drove",
+          "sentence": "Once, we camped along Chalk Creek.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "drive",
+        "rank": 179,
+        "frequency": 73,
+        "variants": [
+          "driving",
+          "driven",
+          "drove",
+          "drives"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day11-25-drive",
+            "word": "drive",
+            "cn": "驾驶；驱使",
+            "pos": "v.",
+            "day": 11,
+            "order": 25
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "walk",
+      "surfaceForms": [
+        "walked"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "步行"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 7,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::42::C::s03::walked",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 42,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "walked",
+          "sentence": "Once, we camped along Chalk Creek.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "walk",
+        "rank": 131,
+        "frequency": 86,
+        "variants": [
+          "walking",
+          "walked",
+          "walks",
+          "walker"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day07-14-walk",
+            "word": "walk",
+            "cn": "步行",
+            "pos": "v.",
+            "day": 7,
+            "order": 14
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "cycle",
+      "surfaceForms": [
+        "cycled"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "骑自行车"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 8,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::42::D::s03::cycled",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 42,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "cycled",
+          "sentence": "Once, we camped along Chalk Creek.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "cycle",
+        "rank": 1319,
+        "frequency": 13,
+        "variants": [
+          "cycling"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day05-30-cycle",
+            "word": "cycle",
+            "cn": "循环",
+            "pos": "n.",
+            "day": 5,
+            "order": 30
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "annoy",
+      "surfaceForms": [
+        "annoyed"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "恼怒的"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 9,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::43::A::s04::annoyed",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 43,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "annoyed",
+          "sentence": "I was worried that our 15-month-old boy would fall into the creek (小溪).",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "annoy",
+        "rank": 1140,
+        "frequency": 16,
+        "variants": [
+          "annoying",
+          "annoyed"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day30-27-annoy",
+            "word": "annoy",
+            "cn": "惹恼",
+            "pos": "v.",
+            "day": 30,
+            "order": 27
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "surprise",
+      "surfaceForms": [
+        "surprised"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "惊讶的"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 10,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::43::B::s04::surprised",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 43,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "surprised",
+          "sentence": "I was worried that our 15-month-old boy would fall into the creek (小溪).",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "surprise",
+        "rank": 329,
+        "frequency": 50,
+        "variants": [
+          "surprised",
+          "surprising",
+          "surprises"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "disappoint",
+      "surfaceForms": [
+        "disappointed"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "失望的"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 11,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::43::C::s04::disappointed",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 43,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "disappointed",
+          "sentence": "I was worried that our 15-month-old boy would fall into the creek (小溪).",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "disappoint",
+        "rank": 2655,
+        "frequency": 3,
+        "variants": [
+          "disappointing"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day25-12-disappointed",
+            "word": "disappointed",
+            "cn": "失望的",
+            "pos": "adj.",
+            "day": 25,
+            "order": 12
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "worry",
+      "surfaceForms": [
+        "worried"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "担心的"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 12,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::43::D::s04::worried",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 43,
+          "optionLetter": "D",
+          "role": "correct",
+          "surface": "worried",
+          "sentence": "I was worried that our 15-month-old boy would fall into the creek (小溪).",
+          "tags": [
+            "cloze_option",
+            "correct_answer",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "worry",
+        "rank": 1174,
+        "frequency": 15,
+        "variants": [
+          "worries"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "unhurt",
+      "surfaceForms": [
+        "unhurt"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "未受伤的"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 13,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::44::A::s06::unhurt",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 44,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "unhurt",
+          "sentence": "He was uncomfortable, and his crying let the whole campground know it.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "unfortunate",
+      "surfaceForms": [
+        "unfortunate"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "不幸的"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 14,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::44::B::s06::unfortunate",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 44,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "unfortunate",
+          "sentence": "He was uncomfortable, and his crying let the whole campground know it.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "unfortunate",
+        "rank": 3554,
+        "frequency": 1,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "uncomfortable",
+      "surfaceForms": [
+        "uncomfortable"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "不舒服的"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 15,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::44::C::s06::uncomfortable",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 44,
+          "optionLetter": "C",
+          "role": "correct",
+          "surface": "uncomfortable",
+          "sentence": "He was uncomfortable, and his crying let the whole campground know it.",
+          "tags": [
+            "cloze_option",
+            "correct_answer",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "uncomfortable",
+        "rank": 1572,
+        "frequency": 9,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "unafraid",
+      "surfaceForms": [
+        "unafraid"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "不害怕的"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 16,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::44::D::s06::unafraid",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 44,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "unafraid",
+          "sentence": "He was uncomfortable, and his crying let the whole campground know it.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "due to",
+      "surfaceForms": [
+        "due to"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "由于"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 17,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::45::A::s07::due to",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 45,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "due to",
+          "sentence": "So instead of tying him up, I just kept a close eye on him.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day10-29-due-to",
+            "word": "due to",
+            "cn": "由于",
+            "pos": "prep. phr.",
+            "day": 10,
+            "order": 29
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "instead of",
+      "surfaceForms": [
+        "instead of"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "而不是"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 18,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::45::B::s07::instead of",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 45,
+          "optionLetter": "B",
+          "role": "correct",
+          "surface": "instead of",
+          "sentence": "So instead of tying him up, I just kept a close eye on him.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day11-37-instead-of",
+            "word": "instead of",
+            "cn": "而不是",
+            "pos": "prep. phr.",
+            "day": 11,
+            "order": 37
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "apart from",
+      "surfaceForms": [
+        "apart from"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "除……之外"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 19,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::45::C::s07::apart from",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 45,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "apart from",
+          "sentence": "So instead of tying him up, I just kept a close eye on him.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day24-27-apart-from",
+            "word": "apart from",
+            "cn": "除了",
+            "pos": "prep. phr.",
+            "day": 24,
+            "order": 27
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "as for",
+      "surfaceForms": [
+        "as for"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "至于"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 20,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::45::D::s07::as for",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 45,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "as for",
+          "sentence": "So instead of tying him up, I just kept a close eye on him.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "work",
+      "surfaceForms": [
+        "worked"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "奏效；起作用"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer",
+        "familiar_new_meaning"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 21,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::46::A::s08::worked",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 46,
+          "optionLetter": "A",
+          "role": "correct",
+          "surface": "worked",
+          "sentence": "It worked — he didn't end up in the creek. My three-year-old, however, did.",
+          "tags": [
+            "cloze_option",
+            "correct_answer",
+            "familiar_new_meaning"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "work",
+        "rank": 48,
+        "frequency": 147,
+        "variants": [
+          "working",
+          "worked",
+          "works"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "happen",
+      "surfaceForms": [
+        "happened"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "发生"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 22,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::46::B::s08::happened",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 46,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "happened",
+          "sentence": "It worked — he didn't end up in the creek. My three-year-old, however, did.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "happen",
+        "rank": 300,
+        "frequency": 53,
+        "variants": [
+          "happened",
+          "happens",
+          "happening"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "matter",
+      "surfaceForms": [
+        "mattered"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "要紧；有关系"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 23,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::46::C::s08::mattered",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 46,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "mattered",
+          "sentence": "It worked — he didn't end up in the creek. My three-year-old, however, did.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "matter",
+        "rank": 286,
+        "frequency": 54,
+        "variants": [
+          "matters",
+          "mattered"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "change",
+      "surfaceForms": [
+        "changed"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "改变"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 24,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::46::D::s08::changed",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 46,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "changed",
+          "sentence": "It worked — he didn't end up in the creek. My three-year-old, however, did.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "change",
+        "rank": 18,
+        "frequency": 207,
+        "variants": [
+          "changed",
+          "changes",
+          "changing"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "sign up",
+      "surfaceForms": [
+        "signed up"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "报名"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 25,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::47::A::s09::signed up",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 47,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "signed up",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "calm down",
+      "surfaceForms": [
+        "calmed down"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "平静下来"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 26,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::47::B::s09::calmed down",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 47,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "calmed down",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day27-35-calm-down",
+            "word": "calm down",
+            "cn": "冷静下来",
+            "pos": "v. phr.",
+            "day": 27,
+            "order": 35
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "check out",
+      "surfaceForms": [
+        "checked out"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "查看；退房"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 27,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::47::C::s09::checked out",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 47,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "checked out",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day23-40-check-out",
+            "word": "check out",
+            "cn": "查看；结账离开",
+            "pos": "v. phr.",
+            "day": 23,
+            "order": 40
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "head off",
+      "surfaceForms": [
+        "headed off"
+      ],
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meanings": [
+        "出发；动身"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 28,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::47::D::s09::headed off",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 47,
+          "optionLetter": "D",
+          "role": "correct",
+          "surface": "headed off",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "arrange",
+      "surfaceForms": [
+        "arranged"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "安排"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 29,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::48::A::s09::arranged",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 48,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "arranged",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "arrange",
+        "rank": 2646,
+        "frequency": 3,
+        "variants": [
+          "arranged",
+          "arranging"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day13-38-arrange",
+            "word": "arrange",
+            "cn": "安排",
+            "pos": "v.",
+            "day": 13,
+            "order": 38
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "interrupt",
+      "surfaceForms": [
+        "interrupted"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "打断；中断"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 30,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::48::B::s09::interrupted",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 48,
+          "optionLetter": "B",
+          "role": "correct",
+          "surface": "interrupted",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "interrupt",
+        "rank": 1949,
+        "frequency": 6,
+        "variants": [
+          "interrupted"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day17-15-interrupt",
+            "word": "interrupt",
+            "cn": "打断",
+            "pos": "v.",
+            "day": 17,
+            "order": 15
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "complete",
+      "surfaceForms": [
+        "completed"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "完成"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 31,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::48::C::s09::completed",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 48,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "completed",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "complete",
+        "rank": 280,
+        "frequency": 55,
+        "variants": [
+          "completely",
+          "completed"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day05-08-complete",
+            "word": "complete",
+            "cn": "完成",
+            "pos": "v.",
+            "day": 5,
+            "order": 8
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "record",
+      "surfaceForms": [
+        "recorded"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "记录"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 32,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::48::D::s09::recorded",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 48,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "recorded",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "record",
+        "rank": 516,
+        "frequency": 36,
+        "variants": [
+          "records",
+          "recorded",
+          "recording"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day08-13-record",
+            "word": "record",
+            "cn": "记录",
+            "pos": "n.",
+            "day": 8,
+            "order": 13
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "wind",
+      "surfaceForms": [
+        "wind"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "风"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 33,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::49::A::s10::wind",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 49,
+          "optionLetter": "A",
+          "role": "correct",
+          "surface": "wind",
+          "sentence": "The wind picked up and thunder rolled.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "wind",
+        "rank": 532,
+        "frequency": 35,
+        "variants": [
+          "winding",
+          "winds"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day19-33-wind",
+            "word": "wind",
+            "cn": "风",
+            "pos": "n.",
+            "day": 19,
+            "order": 33
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "noise",
+      "surfaceForms": [
+        "noise"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "噪声"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 34,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::49::B::s10::noise",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 49,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "noise",
+          "sentence": "The wind picked up and thunder rolled.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "noise",
+        "rank": 2510,
+        "frequency": 3,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "temperature",
+      "surfaceForms": [
+        "temperature"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "温度"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 35,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::49::C::s10::temperature",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 49,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "temperature",
+          "sentence": "The wind picked up and thunder rolled.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "temperature",
+        "rank": 458,
+        "frequency": 40,
+        "variants": [
+          "temperatures"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day19-29-temperature",
+            "word": "temperature",
+            "cn": "温度",
+            "pos": "n.",
+            "day": 19,
+            "order": 29
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "speed",
+      "surfaceForms": [
+        "speed"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "速度"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 36,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::49::D::s10::speed",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 49,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "speed",
+          "sentence": "The wind picked up and thunder rolled.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "speed",
+        "rank": 936,
+        "frequency": 20,
+        "variants": [
+          "speeding",
+          "speeded"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "find",
+      "surfaceForms": [
+        "find"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "找到"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 37,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::50::A::s11::find",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 50,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "find",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "find",
+        "rank": 3,
+        "frequency": 361,
+        "variants": [
+          "found",
+          "finding",
+          "finds"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "hide",
+      "surfaceForms": [
+        "hide"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "隐藏"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 38,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::50::B::s11::hide",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 50,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "hide",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "hide",
+        "rank": 1474,
+        "frequency": 11,
+        "variants": [
+          "hidden",
+          "hiding"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day28-08-hide",
+            "word": "hide",
+            "cn": "隐藏",
+            "pos": "v.",
+            "day": 28,
+            "order": 8
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "start",
+      "surfaceForms": [
+        "start"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "发动"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 39,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::50::C::s11::start",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 50,
+          "optionLetter": "C",
+          "role": "correct",
+          "surface": "start",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "start",
+        "rank": 56,
+        "frequency": 140,
+        "variants": [
+          "started",
+          "starting",
+          "starts"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day05-01-start",
+            "word": "start",
+            "cn": "开始",
+            "pos": "v.",
+            "day": 5,
+            "order": 1
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "fix",
+      "surfaceForms": [
+        "fix"
+      ],
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meanings": [
+        "修理"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 40,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::50::D::s11::fix",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 50,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "fix",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "fix",
+        "rank": 1985,
+        "frequency": 6,
+        "variants": [
+          "fixed",
+          "fixing"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "luck",
+      "surfaceForms": [
+        "luck"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "运气；No luck表示没成功"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 41,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::51::A::s11::luck",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 51,
+          "optionLetter": "A",
+          "role": "correct",
+          "surface": "luck",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "luck",
+        "rank": 1107,
+        "frequency": 16,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "answer",
+      "surfaceForms": [
+        "answer"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "答案；回应"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 42,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::51::B::s11::answer",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 51,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "answer",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "answer",
+        "rank": 600,
+        "frequency": 32,
+        "variants": [
+          "answers",
+          "answering",
+          "answered"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day07-08-answer",
+            "word": "answer",
+            "cn": "答案",
+            "pos": "n.",
+            "day": 7,
+            "order": 8
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "wonder",
+      "surfaceForms": [
+        "wonder"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "奇迹；No wonder表示难怪"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 43,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::51::C::s11::wonder",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 51,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "wonder",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "wonder",
+        "rank": 428,
+        "frequency": 42,
+        "variants": [
+          "wondering",
+          "wonders",
+          "wondered"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "signal",
+      "surfaceForms": [
+        "signal"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "信号"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 44,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::51::D::s11::signal",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 51,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "signal",
+          "sentence": "My husband stopped fishing to start the motor. Nothing. He tried again. No luck.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "signal",
+        "rank": 1116,
+        "frequency": 16,
+        "variants": [
+          "signals"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day24-32-signal",
+            "word": "signal",
+            "cn": "信号",
+            "pos": "n.",
+            "day": 24,
+            "order": 32
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "patiently",
+      "surfaceForms": [
+        "patiently"
+      ],
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meanings": [
+        "耐心地"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 45,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::52::A::s12::patiently",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 52,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "patiently",
+          "sentence": "We were stuck in the middle of the lake with a dead motor. As we all sat there helplessly, a fisherman pulled up, threw us a rope and towed (拖) us back.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "patient",
+        "rank": 620,
+        "frequency": 31,
+        "variants": [
+          "patients",
+          "patiently"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "tirelessly",
+      "surfaceForms": [
+        "tirelessly"
+      ],
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meanings": [
+        "不知疲倦地"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 46,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::52::B::s12::tirelessly",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 52,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "tirelessly",
+          "sentence": "We were stuck in the middle of the lake with a dead motor. As we all sat there helplessly, a fisherman pulled up, threw us a rope and towed (拖) us back.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "doubtfully",
+      "surfaceForms": [
+        "doubtfully"
+      ],
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meanings": [
+        "怀疑地"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 47,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::52::C::s12::doubtfully",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 52,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "doubtfully",
+          "sentence": "We were stuck in the middle of the lake with a dead motor. As we all sat there helplessly, a fisherman pulled up, threw us a rope and towed (拖) us back.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "helplessly",
+      "surfaceForms": [
+        "helplessly"
+      ],
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meanings": [
+        "无助地"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 48,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::52::D::s12::helplessly",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 52,
+          "optionLetter": "D",
+          "role": "correct",
+          "surface": "helplessly",
+          "sentence": "We were stuck in the middle of the lake with a dead motor. As we all sat there helplessly, a fisherman pulled up, threw us a rope and towed (拖) us back.",
+          "tags": [
+            "cloze_option",
+            "correct_answer",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "sorry",
+      "surfaceForms": [
+        "sorry"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "抱歉的；难过的"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 49,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::53::A::s13::sorry",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 53,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "sorry",
+          "sentence": "We were safe.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "sorry",
+        "rank": 1497,
+        "frequency": 10,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "brave",
+      "surfaceForms": [
+        "brave"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "勇敢的"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 50,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::53::B::s13::brave",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 53,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "brave",
+          "sentence": "We were safe.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "brave",
+        "rank": 1444,
+        "frequency": 11,
+        "variants": [
+          "bravely"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "safe",
+      "surfaceForms": [
+        "safe"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "安全的"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 51,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::53::C::s13::safe",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 53,
+          "optionLetter": "C",
+          "role": "correct",
+          "surface": "safe",
+          "sentence": "We were safe.",
+          "tags": [
+            "cloze_option",
+            "correct_answer",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "safe",
+        "rank": 322,
+        "frequency": 50,
+        "variants": [
+          "safer",
+          "saves"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "right",
+      "surfaceForms": [
+        "right"
+      ],
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meanings": [
+        "正确的"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 52,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::53::D::s13::right",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 53,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "right",
+          "sentence": "We were safe.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "right",
+        "rank": 72,
+        "frequency": 122,
+        "variants": [
+          "rights"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "relief",
+      "surfaceForms": [
+        "relief"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "宽慰；解脱"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 53,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::54::A::s14::relief",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 54,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "relief",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "relief",
+        "rank": 1800,
+        "frequency": 7,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day23-16-relief",
+            "word": "relief",
+            "cn": "宽慰；缓解",
+            "pos": "n.",
+            "day": 23,
+            "order": 16
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "duty",
+      "surfaceForms": [
+        "duty"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "责任；义务"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 54,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::54::B::s14::duty",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 54,
+          "optionLetter": "B",
+          "role": "distractor",
+          "surface": "duty",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "duty",
+        "rank": 2186,
+        "frequency": 5,
+        "variants": [
+          "duties"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day16-07-duty",
+            "word": "duty",
+            "cn": "义务",
+            "pos": "n.",
+            "day": 16,
+            "order": 7
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "pride",
+      "surfaceForms": [
+        "pride"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "骄傲；自豪"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 55,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::54::C::s14::pride",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 54,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "pride",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "pride",
+        "rank": 2236,
+        "frequency": 4,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "excitement",
+      "surfaceForms": [
+        "excitement"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "兴奋；激动"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 56,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::54::D::s14::excitement",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 54,
+          "optionLetter": "D",
+          "role": "correct",
+          "surface": "excitement",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option",
+            "correct_answer",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "excitement",
+        "rank": 1426,
+        "frequency": 11,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "failure",
+      "surfaceForms": [
+        "failure"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "失败"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 57,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::55::A::s14::failure",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 55,
+          "optionLetter": "A",
+          "role": "distractor",
+          "surface": "failure",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "failure",
+        "rank": 1175,
+        "frequency": 15,
+        "variants": [
+          "failures"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day05-18-failure",
+            "word": "failure",
+            "cn": "失败",
+            "pos": "n.",
+            "day": 5,
+            "order": 18
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "adventure",
+      "surfaceForms": [
+        "adventure"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "冒险；奇遇"
+      ],
+      "tags": [
+        "cloze_option",
+        "correct_answer"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 58,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::55::B::s14::adventure",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 55,
+          "optionLetter": "B",
+          "role": "correct",
+          "surface": "adventure",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option",
+            "correct_answer"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "adventure",
+        "rank": 979,
+        "frequency": 19,
+        "variants": [
+          "adventures"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day07-32-adventure",
+            "word": "adventure",
+            "cn": "冒险",
+            "pos": "n.",
+            "day": 7,
+            "order": 32
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "performance",
+      "surfaceForms": [
+        "performance"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "表演；表现"
+      ],
+      "tags": [
+        "cloze_option"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 59,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::55::C::s14::performance",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 55,
+          "optionLetter": "C",
+          "role": "distractor",
+          "surface": "performance",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "performance",
+        "rank": 1374,
+        "frequency": 12,
+        "variants": [
+          "performances"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "conflict",
+      "surfaceForms": [
+        "conflict"
+      ],
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meanings": [
+        "冲突；矛盾"
+      ],
+      "tags": [
+        "cloze_option",
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 60,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::55::D::s14::conflict",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": 55,
+          "optionLetter": "D",
+          "role": "distractor",
+          "surface": "conflict",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "cloze_option",
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "conflict",
+        "rank": 2462,
+        "frequency": 3,
+        "variants": [
+          "conflicts"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "exact",
+        "courseItems": [
+          {
+            "id": "day22-19-conflict",
+            "word": "conflict",
+            "cn": "冲突",
+            "pos": "n.",
+            "day": 22,
+            "order": 19
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "wonderful",
+      "surfaceForms": [
+        "wonderful"
+      ],
+      "partsOfSpeech": [
+        "expression"
+      ],
+      "meanings": [],
+      "tags": [
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 61,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::passage::text::s01::wonderful",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": null,
+          "optionLetter": null,
+          "role": "passage_emotion",
+          "sourceRole": "passage",
+          "surface": "wonderful",
+          "emotionKind": "atmosphere",
+          "sentence": "My husband, our children and I have had wonderful camping experiences over the past ten years.",
+          "tags": [
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "wonderful",
+        "rank": 970,
+        "frequency": 19,
+        "variants": [
+          "wonderfully"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "funny",
+      "surfaceForms": [
+        "funny"
+      ],
+      "partsOfSpeech": [
+        "expression"
+      ],
+      "meanings": [],
+      "tags": [
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 62,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::passage::text::s02::funny",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": null,
+          "optionLetter": null,
+          "role": "passage_emotion",
+          "sourceRole": "passage",
+          "surface": "funny",
+          "emotionKind": "atmosphere",
+          "sentence": "Some of our memories are funny, especially from the early years when our children were little.",
+          "tags": [
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "funny",
+        "rank": 1957,
+        "frequency": 6,
+        "variants": []
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "cry",
+      "surfaceForms": [
+        "crying"
+      ],
+      "partsOfSpeech": [
+        "expression"
+      ],
+      "meanings": [],
+      "tags": [
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 63,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::passage::text::s06::crying",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": null,
+          "optionLetter": null,
+          "role": "passage_emotion",
+          "sourceRole": "passage",
+          "surface": "crying",
+          "emotionKind": "outward_behavior",
+          "sentence": "He was uncomfortable, and his crying let the whole campground know it.",
+          "tags": [
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "cry",
+        "rank": 150,
+        "frequency": 80,
+        "variants": [
+          "crying",
+          "cried",
+          "cryer"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "canonical_match",
+        "courseItems": [
+          {
+            "id": "day07-17-cry",
+            "word": "cry",
+            "cn": "哭泣",
+            "pos": "v.",
+            "day": 7,
+            "order": 17
+          }
+        ]
+      },
+      "action": "review_existing"
+    },
+    {
+      "canonical": "peaceful",
+      "surfaceForms": [
+        "peaceful"
+      ],
+      "partsOfSpeech": [
+        "expression"
+      ],
+      "meanings": [],
+      "tags": [
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 64,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::passage::text::s09::peaceful",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": null,
+          "optionLetter": null,
+          "role": "passage_emotion",
+          "sourceRole": "passage",
+          "surface": "peaceful",
+          "emotionKind": "atmosphere",
+          "sentence": "Another time, we rented a boat in Vallecito Lake. The sky was clear when we headed off, but storms move in fast in the mountains, and this one quickly interrupted our peaceful morning trip.",
+          "tags": [
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": {
+        "lemma": "peaceful",
+        "rank": 1720,
+        "frequency": 8,
+        "variants": [
+          "peacefully"
+        ]
+      },
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    },
+    {
+      "canonical": "be filled with a sense of excitement",
+      "surfaceForms": [
+        "filled with a sense of excitement"
+      ],
+      "partsOfSpeech": [
+        "expression"
+      ],
+      "meanings": [],
+      "tags": [
+        "emotion"
+      ],
+      "counts": {
+        "total": 1,
+        "gaokao": 1,
+        "school_exam": 0,
+        "weekend_homework": 0,
+        "other": 0
+      },
+      "firstSeenOrder": 65,
+      "occurrences": [
+        {
+          "id": "gaokao-2022-new-gaokao-1-cloze::cloze::passage::text::s14::filled with a sense of excitement",
+          "sourceId": "gaokao-2022-new-gaokao-1-cloze",
+          "sourceType": "gaokao",
+          "sourceName": "2022年普通高等学校招生全国统一考试·新高考Ⅰ卷·英语·完形填空·第41—55题",
+          "sourceFile": "exam-papers/cloze/2022-新高考I卷-完形填空.md",
+          "questionType": "cloze",
+          "questionNumber": null,
+          "optionLetter": null,
+          "role": "passage_emotion",
+          "sourceRole": "passage",
+          "surface": "filled with a sense of excitement",
+          "emotionKind": "emotion_phrase",
+          "sentence": "Now, every year when my husband pulls our camper out of the garage, we are filled with a sense of excitement, wondering what camping fun and adventure we will experience next.",
+          "tags": [
+            "emotion"
+          ]
+        }
+      ],
+      "gaokaoFrequency": null,
+      "earlyReading": {
+        "matchType": "supplement",
+        "courseItems": []
+      },
+      "action": "add_supplement"
+    }
+  ]
+}
