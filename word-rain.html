@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>🧠 单词轰炸 · 陈浩谦 30天计划</title>
+<title>🧠 单词轰炸 · 陈浩谦课堂词复习</title>
 <style>
 :root {
   --bg:#000; --text:#fff; --soft:#cfcfcf; --muted:#777; --dim:#3a3a3a;
@@ -36,6 +36,25 @@ canvas{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:0}
 #central{position:fixed;left:50%;top:48%;z-index:50;width:min(92vw,1200px);transform:translate(-50%,-50%);text-align:center;pointer-events:none;display:none;filter:drop-shadow(0 0 26px rgba(255,255,255,.14))}
 #central .en{font-family:"Arial Black","SF Pro Display",var(--font);font-size:var(--en-size);font-weight:950;line-height:1.02;letter-spacing:-.045em;color:#fff;overflow-wrap:anywhere;transition:font-size .28s cubic-bezier(.2,.8,.2,1),opacity .18s ease,transform .28s cubic-bezier(.2,.8,.2,1),letter-spacing .28s ease}
 #central .cn{margin-top:.16em;font-size:var(--cn-size);font-weight:900;line-height:1.22;color:#fff;transition:font-size .28s ease,opacity .18s ease,transform .28s ease}
+#central .family,#central .colloc,#central .note{font-weight:850;line-height:1.4;opacity:0;transition:opacity .3s ease}
+#central.revealed .family,#central.revealed .colloc,#central.revealed .note{opacity:1}
+#central .family{margin-top:.3em;font-size:clamp(1rem,2.3vw,1.6rem);color:#ffd9a8}
+#central .colloc{margin-top:.22em;font-size:clamp(.9rem,2vw,1.4rem);color:#9fe8c0}
+#central .note{margin-top:.22em;font-size:clamp(.84rem,1.8vw,1.25rem);color:#ffb3b3}
+#central .family:empty,#central .colloc:empty,#central .note:empty{display:none}
+
+#testActions{position:fixed;left:50%;top:64%;z-index:60;display:none;gap:14px;transform:translateX(-50%)}
+#testActions.show{display:flex}
+#testActions button{min-width:clamp(118px,26vw,180px);min-height:56px;padding:14px 24px;border:1px solid rgba(255,255,255,.26);border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:clamp(.9rem,1.9vw,1.08rem);font-weight:900;letter-spacing:.05em;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .16s ease,background .16s ease,border-color .16s ease}
+#testActions button:active{transform:scale(.95)}
+#testActions #btnKnown{border-color:rgba(67,220,134,.62);background:rgba(67,220,134,.12);color:var(--new)}
+#testActions #btnUnknown{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);color:#d8d8d8}
+#central.prompt .en{animation:wordReveal .5s cubic-bezier(.16,.86,.3,1)}
+/* 测试阶段：干净背景——藏掉复习 HUD 和底部条，只留测试词 + 两个按钮（静音键保留） */
+body.testing #hud #phaseLabel{display:none}
+body.testing #bar{display:none}
+#unknownList{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:min(560px,88vw);max-height:26vh;overflow:auto;margin-bottom:20px}
+#unknownList span{padding:6px 13px;border:1px solid rgba(255,138,52,.42);border-radius:999px;background:rgba(255,138,52,.1);color:#ffb277;font-size:clamp(.74rem,1.7vw,.9rem);font-weight:850;letter-spacing:.02em}
 #central.letter .en{animation:letterFocus .34s cubic-bezier(.2,.9,.25,1)}
 #central.revealed .en{animation:wordReveal .62s cubic-bezier(.16,.86,.3,1)}
 #central.recall .en{opacity:0;transform:translateY(10px) scale(.96)}
@@ -114,6 +133,10 @@ canvas{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:0}
 #welcomeContent .motto{max-width:390px;min-height:0;margin:0 0 14px;color:#53759b;font-size:clamp(.72rem,1.2vw,.86rem)}
 #welcomeContent button{min-width:min(330px,84%);min-height:54px;border-color:#083f88;background:#083f88;color:#fff;box-shadow:0 12px 30px rgba(7,63,136,.2)}
 #welcomeContent button.secondary{border-color:#0a4f9f;background:rgba(255,255,255,.76);color:#084287}
+/* 按钮与上方「早读完成次数／测试完成次数」两栏左右对齐，不再上下堆叠 */
+#welcomeContent .welcome-actions{width:min(390px,88%);display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#welcomeContent .welcome-actions.single{grid-template-columns:1fr}
+#welcomeContent .welcome-actions button{width:100%;min-width:0;min-height:54px;padding:12px 10px;font-size:clamp(.82rem,1.55vw,1rem);line-height:1.3;letter-spacing:.03em}
 #welcomeContent button.reset-link{display:inline-block;width:auto;min-width:0;min-height:0;margin-top:10px;padding:6px 10px;border:0;border-radius:8px;background:transparent;color:#83a0c1;box-shadow:none;font-size:11px;font-weight:650;line-height:1.4;letter-spacing:0;text-decoration:none;cursor:pointer;opacity:0.88;appearance:none;-webkit-appearance:none}
 #welcomeContent button.reset-link:hover{color:#4f78a8;opacity:1}
 #welcomeContent button.reset-link:active{transform:none;color:#275f9f}
@@ -185,7 +208,12 @@ canvas{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:0}
   <div class="btns"><button id="muteBtn" title="静音" aria-label="静音切换">🔊</button></div>
 </div>
 
-<div id="central"><div class="en" id="cEN"></div><div class="cn" id="cCN"></div></div>
+<div id="central"><div class="en" id="cEN"></div><div class="cn" id="cCN"></div><div class="family" id="cFamily"></div><div class="colloc" id="cColloc"></div><div class="note" id="cNote"></div></div>
+
+<div id="testActions">
+  <button id="btnKnown" type="button">想起来了</button>
+  <button id="btnUnknown" type="button">还没想起来</button>
+</div>
 
 <div id="bar">
   <div class="info-row"><span class="word" id="curWord">—</span><span id="wordCount">0/0</span></div>
@@ -197,40 +225,37 @@ canvas{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:0}
 <div class="overlay" id="welcomeOverlay"><div id="welcomeContent"></div></div>
 <div class="overlay" id="completeOverlay"><div id="completeContent"></div></div>
 
-<!-- 词库数据（由 build-d30-plan.py 生成） -->
-<script src="word-bank-data.js"></script>
+<!-- 课堂词库数据（由 ../陈浩谦高考英语提升系统/scripts/build_unit_01_classroom_bank.py 生成） -->
+<script src="classroom-bank-data.js"></script>
 
 <script>
 /* ================================================================
-   单词轰炸 v4.0 — 陈浩谦 · 30天全自动高频词早读
+   单词轰炸 v5.0 — 陈浩谦 · Unit 1 课堂词复习
+   一次走完课堂词：每词 1 轮拼读 + 1 轮回忆 + 4 次快速识别。
+   不循环、不排复习节点、不推进课程日；当天走完即结束。
    ================================================================ */
 
 const $ = id => document.getElementById(id);
 const cv = $("c"), ctx = cv.getContext("2d");
 const central = $("central"), cEN = $("cEN"), cCN = $("cCN");
+const cFamily = $("cFamily"), cColloc = $("cColloc"), cNote = $("cNote");
 const fillBar = $("fill"), statsEl = $("stats"), phaseLabel = $("phaseLabel");
 const catLabel = $("catLabel"), muteBtn = $("muteBtn"), beatPulse = $("beatPulse");
 const welcomeOverlay = $("welcomeOverlay"), welcomeContent = $("welcomeContent");
 const completeOverlay = $("completeOverlay"), completeContent = $("completeContent");
 
 const CONFIG = Object.freeze({
-  reviewOffsets: Object.freeze([1, 2, 4, 7, 15]),
   letterMs: 340,
   recallCueMs: 1200,
   revealHoldMs: 220,
   silentFlashMs: 620,
-  newWord: Object.freeze({ spellRounds: 3, recallRounds: 2, flashCount: 5 }),
-  reviewEarly: Object.freeze({ spellRounds: 1, recallRounds: 1, flashCount: 4 }),
-  reviewLate: Object.freeze({ spellRounds: 0, recallRounds: 1, flashCount: 2 }),
+  word: Object.freeze({ spellRounds: 1, recallRounds: 1, flashCount: 4 }),
 });
 
-const ALL_ITEMS = Object.values(D30_PLAN).flat();
+/* 课堂词库：classroom-bank-data.js（提升系统侧权威数据为 vocabulary/unit-01-classroom-bank.json） */
+const BANK = CLASSROOM_BANK;
+const ALL_ITEMS = BANK.items.slice().sort((a, b) => a.order - b.order);
 const ITEM_BY_ID = new Map(ALL_ITEMS.map(item => [item.id, item]));
-const ITEMS_BY_WORD = ALL_ITEMS.reduce((map,item) => {
-  if (!map.has(item.word)) map.set(item.word, []);
-  map.get(item.word).push(item);
-  return map;
-}, new Map());
 
 let W = innerWidth, H = innerHeight, DPR = 1;
 function resizeCanvas() {
@@ -431,12 +456,11 @@ function setMuted(value){
 }
 setMuted(muted);
 
-/* ---------------- Versioned progress and strict review ---------------- */
-const STORE_KEY="wordrain_v3";
-const SCHEMA_VERSION=3;
-const BANK_VERSION="1200-v2.0-2026-08-03";
-const entryKey=(cycle,itemId)=>`${cycle}:${itemId}`;
-const completionKey=(cycle,day)=>`${cycle}:${day}`;
+/* ---------------- Classroom review progress ---------------- */
+/* 独立存储键：与旧 30 天系统的进度完全隔离——不读取、不迁移、不删除。 */
+const STORE_KEY="wordrain_classroom_v1";
+const SCHEMA_VERSION=1;
+const BANK_VERSION=CLASSROOM_BANK.bankVersion;
 function localDateString(date=new Date()){
   const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,"0"),d=String(date.getDate()).padStart(2,"0");
   return `${y}-${m}-${d}`;
@@ -445,54 +469,30 @@ function getToday(){
   const test=new URLSearchParams(location.search).get("testDate");
   return /^\d{4}-\d{2}-\d{2}$/.test(test||"")?test:localDateString();
 }
-function addDays(dateString,days){ const [y,m,d]=dateString.split("-").map(Number),date=new Date(y,m-1,d+days); return localDateString(date); }
 
 function emptyStore(){
-  return {version:SCHEMA_VERSION,bankVersion:BANK_VERSION,cycle:1,courseDay:1,lastAdvancedDate:null,entries:{},dayCompletion:{}};
+  return {version:SCHEMA_VERSION,bankVersion:BANK_VERSION,lastCompletedDate:null,runCount:0,resume:{date:null,completedIds:[]},lastTest:{date:null,unknownIds:[]},testRunCount:0};
 }
 function isPlainObject(value){return !!value&&typeof value==="object"&&!Array.isArray(value);}
 function isDateString(value){return typeof value==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(value);}
-function normalizeEntry(itemId,record,cycle){
-  const item=ITEM_BY_ID.get(itemId);
-  if(!item||!isPlainObject(record)||!isDateString(record.learnedDate))return null;
-  const completed=[...new Set(Array.isArray(record.completedReviewOffsets)?record.completedReviewOffsets:[])]
-    .filter(offset=>CONFIG.reviewOffsets.includes(offset)).sort((a,b)=>a-b);
-  const next=record.nextReviewOffset==null?null:Number(record.nextReviewOffset);
-  if(next!==null&&!CONFIG.reviewOffsets.includes(next))return null;
-  return {
-    itemId,
-    cycle,
-    word:item.word,
-    courseDay:item.day,
-    learnedDate:record.learnedDate,
-    completedReviewOffsets:completed,
-    nextReviewOffset:next,
-    nextReviewDate:next===null?null:addDays(record.learnedDate,next),
-  };
+function normalizeResume(raw){
+  if(!isPlainObject(raw)||!isDateString(raw.date)||!Array.isArray(raw.completedIds))return {date:null,completedIds:[]};
+  const completedIds=[...new Set(raw.completedIds)].filter(id=>ITEM_BY_ID.has(id));
+  return {date:raw.date,completedIds};
+}
+function normalizeTest(raw){
+  if(!isPlainObject(raw)||!isDateString(raw.date)||!Array.isArray(raw.unknownIds))return {date:null,unknownIds:[]};
+  const unknownIds=[...new Set(raw.unknownIds)].filter(id=>ITEM_BY_ID.has(id));
+  return {date:raw.date,unknownIds};
 }
 function normalizeStore(parsed){
-  if(!isPlainObject(parsed)||parsed.version!==SCHEMA_VERSION||parsed.bankVersion!==BANK_VERSION||
-     !isPlainObject(parsed.entries)||!isPlainObject(parsed.dayCompletion))throw new Error("incompatible schema");
+  if(!isPlainObject(parsed)||parsed.version!==SCHEMA_VERSION||parsed.bankVersion!==BANK_VERSION)throw new Error("incompatible schema");
   const normalized=emptyStore();
-  const hasCycle=Number.isInteger(Number(parsed.cycle))&&Number(parsed.cycle)>=1;
-  normalized.cycle=hasCycle?Number(parsed.cycle):1;
-  normalized.courseDay=Math.min(30,Math.max(1,Number(parsed.courseDay)||1));
-  normalized.lastAdvancedDate=isDateString(parsed.lastAdvancedDate)?parsed.lastAdvancedDate:null;
-  for(const [storedKey,record] of Object.entries(parsed.entries)){
-    const recordCycle=hasCycle?Number(record?.cycle):1;
-    if(hasCycle&&(!Number.isInteger(recordCycle)||recordCycle<1))continue;
-    const itemId=hasCycle?record?.itemId:storedKey;
-    if(hasCycle&&storedKey!==entryKey(recordCycle,itemId))continue;
-    const clean=normalizeEntry(itemId,record,recordCycle);
-    if(clean)normalized.entries[entryKey(recordCycle,itemId)]=clean;
-  }
-  for(const [storedKey,date] of Object.entries(parsed.dayCompletion)){
-    const parts=hasCycle?storedKey.split(":"):["1",storedKey];
-    const cycleNumber=Number(parts[0]),dayNumber=Number(parts[1]);
-    if(parts.length===2&&Number.isInteger(cycleNumber)&&cycleNumber>=1&&Number.isInteger(dayNumber)&&dayNumber>=1&&dayNumber<=30&&isDateString(date)){
-      normalized.dayCompletion[completionKey(cycleNumber,dayNumber)]=date;
-    }
-  }
+  normalized.lastCompletedDate=isDateString(parsed.lastCompletedDate)?parsed.lastCompletedDate:null;
+  normalized.runCount=Number.isInteger(parsed.runCount)&&parsed.runCount>=0?parsed.runCount:0;
+  normalized.resume=normalizeResume(parsed.resume);
+  normalized.lastTest=normalizeTest(parsed.lastTest);
+  normalized.testRunCount=Number.isInteger(parsed.testRunCount)&&parsed.testRunCount>=0?parsed.testRunCount:0;
   return normalized;
 }
 function loadStore(){
@@ -505,52 +505,35 @@ function loadStore(){
 function saveStore(value=progress){try{localStorage.setItem(STORE_KEY,JSON.stringify(value));}catch(_){} }
 let progress=loadStore();
 
-function syncCourseDay(){
-  const today=getToday();let changed=false;
-  while(true){
-    const completed=progress.dayCompletion[completionKey(progress.cycle,progress.courseDay)];
-    if(!completed||completed>=today)break;
-    if(progress.courseDay<30)progress.courseDay++;
-    else{progress.cycle++;progress.courseDay=1;}
-    progress.lastAdvancedDate=today;changed=true;
-  }
-  if(changed)saveStore();
-}
-function markLearned(item){
-  const id=entryKey(progress.cycle,item.id);
-  if(progress.entries[id])return;
-  const learnedDate=getToday(),nextReviewOffset=CONFIG.reviewOffsets[0];
-  progress.entries[id]={itemId:item.id,cycle:progress.cycle,word:item.word,courseDay:item.day,learnedDate,completedReviewOffsets:[],nextReviewOffset,nextReviewDate:addDays(learnedDate,nextReviewOffset)};
+/* 今日已复习的条目 ID（跨自然日自动作废，不累积） */
+function todayCompletedIds(){return progress.resume.date===getToday()?progress.resume.completedIds:[];}
+function completedToday(){return progress.lastCompletedDate===getToday();}
+function markWordDone(itemId){
+  const today=getToday();
+  if(progress.resume.date!==today)progress.resume={date:today,completedIds:[]};
+  if(!progress.resume.completedIds.includes(itemId))progress.resume.completedIds.push(itemId);
   saveStore();
 }
-function markReviewed(entry){
-  const record=progress.entries[entry.instanceId];
-  if(!record||record.nextReviewOffset==null||record.nextReviewOffset!==entry.offset)return;
-  const current=record.nextReviewOffset;
-  if(!record.completedReviewOffsets.includes(current))record.completedReviewOffsets.push(current);
-  const index=CONFIG.reviewOffsets.indexOf(current),next=CONFIG.reviewOffsets[index+1]??null;
-  record.nextReviewOffset=next;record.nextReviewDate=next?addDays(record.learnedDate,next):null;saveStore();
+function markSessionComplete(){
+  progress.lastCompletedDate=getToday();
+  progress.runCount+=1;
+  progress.resume={date:null,completedIds:[]};
+  saveStore();
 }
-function dueReviews(){
-  const today=getToday();
-  return Object.entries(progress.entries)
-    .filter(([,record])=>record.nextReviewDate&&record.nextReviewDate<=today)
-    .map(([instanceId,record])=>({instanceId,item:ITEM_BY_ID.get(record.itemId),kind:"review",offset:record.nextReviewOffset,dueDate:record.nextReviewDate}))
-    .filter(task=>task.item)
-    .sort((a,b)=>a.dueDate.localeCompare(b.dueDate)||a.item.day-b.item.day||a.item.order-b.item.order);
+function testCompletedToday(){return progress.lastTest.date===getToday();}
+function markTestComplete(unknownIds){
+  progress.lastTest={date:getToday(),unknownIds:[...unknownIds]};
+  progress.testRunCount+=1;
+  saveStore();
 }
 
 /* ---------------- Session ---------------- */
-let state={active:false,runToken:0,pauseWaiters:[],queue:[],queueIdx:0,reviewCount:0,newCount:0,completedReview:0,completedNew:0,completedRedo:0,current:null,instances:[],pinned:[],rapidBoxes:[],mode:"normal",stageText:"",prePauseStage:""};
+let state={active:false,runToken:0,pauseWaiters:[],queue:[],queueIdx:0,current:null,instances:[],pinned:[],rapidBoxes:[],mode:"normal",phase:"idle",testQueue:[],testIdx:0,unknownIds:[],testAnswered:false,stageText:"",prePauseStage:""};
 
 function buildSession(mode="normal"){
-  syncCourseDay(); const day=progress.courseDay;
-  const reviews=mode==="normal"?dueReviews():[];
-  const newItems=mode==="redo"
-    ?(D30_PLAN[day]||[]).map(item=>({item,kind:"redo",offset:null}))
-    :(D30_PLAN[day]||[]).filter(item=>!progress.entries[entryKey(progress.cycle,item.id)]).map(item=>({item,kind:"new",offset:null}));
-  state.queue=[...reviews,...newItems]; state.queueIdx=0; state.reviewCount=reviews.length; state.newCount=newItems.length;
-  state.completedReview=0;state.completedNew=0;state.completedRedo=0;state.mode=mode;
+  const done=mode==="resume"?new Set(todayCompletedIds()):new Set();
+  state.queue=ALL_ITEMS.filter(item=>!done.has(item.id)).map(item=>({item,kind:"word"}));
+  state.queueIdx=0; state.mode=mode; state.phase="review";
 }
 
 function gate(token){
@@ -561,20 +544,13 @@ function gate(token){
 async function stepDelay(ms,token){await new Promise(resolve=>setTimeout(resolve,ms));return gate(token);}
 function invalidateRun(){state.runToken++;state.active=false;state.pauseWaiters.splice(0).forEach(fn=>fn());stopSpeech();}
 
-function itemConfig(entry){
-  if(entry.kind==="new")return CONFIG.newWord;
-  if(entry.kind==="redo")return CONFIG.reviewEarly;
-  return entry.offset<=2?CONFIG.reviewEarly:CONFIG.reviewLate;
-}
+function itemConfig(){return CONFIG.word;}
 function catMeta(item){return CAT_META[item.cat]||{label:"",emoji:""};}
 
 function updateHeader(entry){
-  const isNew=entry.kind==="new";
-  phaseLabel.className=isNew?"new":"";
-  if(entry.kind==="review")phaseLabel.textContent=`复习 · +${entry.offset}天  ${state.completedReview+1}/${state.reviewCount}`;
-  else if(isNew)phaseLabel.textContent=`新词 · DAY ${progress.courseDay}  ${state.completedNew+1}/${state.newCount}`;
-  else phaseLabel.textContent=`今日重温  ${state.completedRedo+1}/${state.queue.length}`;
-  fillBar.className=`fill ${isNew?"new":"review"}`;
+  phaseLabel.className="";
+  phaseLabel.textContent=`课堂词复习  ${state.queueIdx+1}/${state.queue.length}`;
+  fillBar.className="fill review";
   $("curWord").textContent=entry.item.word; $("wordCount").textContent=`${state.queueIdx+1}/${state.queue.length}`;
   catLabel.textContent=catMeta(entry.item).label;
 }
@@ -591,14 +567,17 @@ function animateCentral(className){central.className="";void central.offsetWidth
 function visualPulse(kind="beat"){
   beatPulse.className="";void beatPulse.offsetWidth;beatPulse.classList.add(kind);
 }
+function clearWordDetail(){cFamily.textContent="";cColloc.textContent="";cNote.textContent="";}
 function showLetters(item,text){
-  central.style.display="block";setCentralSizes(item);cEN.textContent=text;cCN.textContent="";animateCentral("letter");visualPulse("beat");
+  central.style.display="block";setCentralSizes(item);cEN.textContent=text;cCN.textContent="";clearWordDetail();animateCentral("letter");visualPulse("beat");
 }
 function revealItem(item){
-  central.style.display="block";setCentralSizes(item,true);cEN.textContent=item.word;cCN.textContent=item.cn;animateCentral("revealed");visualPulse("reveal");spawnBurst(W/2,H*.48,14);
+  central.style.display="block";setCentralSizes(item,true);cEN.textContent=item.word;cCN.textContent=item.cn;
+  cFamily.textContent=item.family||"";cColloc.textContent=item.collocation||"";cNote.textContent=item.note||"";
+  animateCentral("revealed");visualPulse("reveal");spawnBurst(W/2,H*.48,14);
 }
 function showRecallCue(item){
-  central.style.display="block";setCentralSizes(item,true);cEN.textContent=item.word;cCN.textContent=item.cn;animateCentral("recall");visualPulse("beat");
+  central.style.display="block";setCentralSizes(item,true);cEN.textContent=item.word;cCN.textContent=item.cn;clearWordDetail();animateCentral("recall");visualPulse("beat");
 }
 
 async function playReveal(item,token){
@@ -675,18 +654,12 @@ async function runOneSpellRound(item,round,total,token){
 
 async function finishCurrentItem(token){
   const entry=state.current;
-  if(entry.kind==="review"){markReviewed(entry);state.completedReview++;}
-  else if(entry.kind==="new"){markLearned(entry.item);state.completedNew++;}
-  else state.completedRedo++;
+  markWordDone(entry.item.id);
   playSound("correct");state.queueIdx++;updateOverallProgress();
 
-  const next=state.queue[state.queueIdx];
-  if(entry.kind==="review"&&next?.kind==="new"){
-    central.style.display="none";updateStage("复习完成");
-    await playFeedback("review-done.mp3");if(!(await gate(token)))return;
-    await playFeedback("new-words-start.mp3");if(!(await gate(token)))return;
-  }else if(entry.kind==="new"&&state.completedNew%8===0&&state.completedNew<state.newCount){
-    await playFeedback(`encourage-${Math.floor(Math.random()*5)+1}.mp3`);if(!(await gate(token)))return;
+  if(state.queueIdx%15===0&&state.queueIdx<state.queue.length){
+    const round=Math.floor(state.queueIdx/15);
+    await playFeedback(`encourage-${((round-1)%5)+1}.mp3`);if(!(await gate(token)))return;
   }else if(!(await stepDelay(320,token)))return;
   runNextItem(token);
 }
@@ -698,26 +671,92 @@ function runNextItem(token){
 }
 
 async function startSession(mode="normal"){
+  if(mode==="test"){beginTest();return;}
   buildSession(mode); if(!state.queue.length){showWelcome();return;}
   welcomeOverlay.classList.remove("show");completeOverlay.classList.remove("show");
   ensureAudio();loadVoices();state.active=true;const token=++state.runToken;$("btnPause").textContent="暂停";$("btnPause").classList.add("primary");
   await playFeedback("welcome.mp3");if(!(await gate(token)))return;
-  if(state.reviewCount){await playFeedback("review-start.mp3");if(!(await gate(token)))return;}
-  else if(state.newCount){await playFeedback("new-words-start.mp3");if(!(await gate(token)))return;}
+  await playFeedback("review-start.mp3");if(!(await gate(token)))return;
   runNextItem(token);
 }
 
 async function finishSession(token){
   if(token!==state.runToken)return;
   state.active=false;central.style.display="none";phaseLabel.textContent="";fillBar.style.width="100%";
-  if(state.mode==="normal"&&state.completedNew>0){
-    const day=progress.courseDay,key=completionKey(progress.cycle,day);
-    const allDone=(D30_PLAN[day]||[]).every(item=>progress.entries[entryKey(progress.cycle,item.id)]);
-    if(allDone&&!progress.dayCompletion[key]){
-      progress.dayCompletion[key]=getToday();progress.lastAdvancedDate=getToday();saveStore();
-    }
-  }
-  playSound("finish");showComplete();await playFeedback("complete.mp3");
+  markSessionComplete();
+  playSound("finish");
+  await playFeedback("complete.mp3");
+  if(token!==state.runToken)return;
+  beginTest();
+}
+
+/* ---------------- Test phase: 中文提示 → 自评揭晓 ---------------- */
+function beginTest(){
+  invalidateRun();
+  state.phase="test";state.testQueue=ALL_ITEMS.slice();state.testIdx=0;
+  state.unknownIds=[];state.testAnswered=false;state.current=null;
+  /* 清掉早读最后一个词留下的词雨/固定词/快速识别方块，测试在干净背景上跑 */
+  state.instances=[];state.pinned=[];state.rapidBoxes=[];
+  document.body.classList.add("testing");
+  welcomeOverlay.classList.remove("show");completeOverlay.classList.remove("show");
+  ensureAudio();loadVoices();state.active=true;
+  $("btnPause").textContent="暂停";$("btnPause").classList.add("primary");
+  const token=++state.runToken;
+  runNextTestItem(token);
+}
+
+function updateTestHeader(item){
+  phaseLabel.className="";
+  phaseLabel.textContent=`测试  ${state.testIdx+1}/${state.testQueue.length}`;
+  fillBar.className="fill review";
+  fillBar.style.width=(state.testIdx/state.testQueue.length*100)+"%";
+  /* 测试期间底部条整体隐藏，这里只做兜底，防止解除隐藏时带出残留 */
+  $("curWord").textContent="—";$("wordCount").textContent=`${state.testIdx+1}/${state.testQueue.length}`;
+  catLabel.textContent=catMeta(item).label;
+  updateStage("根据英文说出中文");
+}
+
+function showTestPrompt(item){
+  central.style.display="block";setCentralSizes(item,true);
+  cEN.textContent=item.word;cCN.textContent="";clearWordDetail();
+  animateCentral("prompt");visualPulse("beat");
+  speakEN(item.word);/* 显示英文的同时朗读英文；学生点按钮时会被揭晓的中文朗读打断 */
+  $("testActions").classList.add("show");
+}
+
+function runNextTestItem(token){
+  if(token!==state.runToken||!state.active)return;
+  if(state.testIdx>=state.testQueue.length){finishTest(token);return;}
+  const item=state.testQueue[state.testIdx];
+  state.current={item,kind:"test"};
+  updateTestHeader(item);
+  showTestPrompt(item);
+}
+
+async function answerTestItem(known){
+  if(state.phase!=="test"||state.testAnswered)return;
+  const entry=state.current;
+  if(!entry||entry.kind!=="test")return;
+  state.testAnswered=true;
+  const token=state.runToken;
+  $("testActions").classList.remove("show");
+  if(!known)state.unknownIds.push(entry.item.id);
+  playSound("reveal");revealItem(entry.item);
+  await speakCN(entry.item);
+  if(!(await stepDelay(CONFIG.revealHoldMs,token)))return;
+  state.testIdx++;state.testAnswered=false;
+  runNextTestItem(token);
+}
+
+async function finishTest(token){
+  if(token!==state.runToken)return;
+  state.active=false;state.phase="idle";state.current=null;
+  document.body.classList.remove("testing");
+  central.style.display="none";$("testActions").classList.remove("show");
+  phaseLabel.textContent="";fillBar.style.width="100%";
+  const unknownIds=[...state.unknownIds];
+  markTestComplete(unknownIds);
+  playSound("finish");showComplete(unknownIds);await playFeedback("test-complete.mp3");
 }
 
 function togglePause(){
@@ -729,49 +768,69 @@ function togglePause(){
 
 /* ---------------- Overlay UI ---------------- */
 function showWelcome(){
-  invalidateRun();buildSession("normal");const day=progress.courseDay,today=getToday();
-  const completedToday=progress.dayCompletion[completionKey(progress.cycle,day)]===today;
-  const motto=completedToday?"今天的课程已经完成，重复巩固不会推进天数。":"先复习到期词，再学习今天的新词。";
+  invalidateRun();buildSession("normal");
+  state.phase="idle";$("testActions").classList.remove("show");
+  document.body.classList.remove("testing");
+  const total=ALL_ITEMS.length,resumed=todayCompletedIds().length;
+  const reviewDone=completedToday(),testDone=testCompletedToday();
+  const motto=!reviewDone
+    ?(resumed?`上次复习到第 ${resumed} 个词，可以接着往下走。`:"先走完 92 个课堂词，早读之后还有一轮测试。")
+    :!testDone
+      ?"早读已经完成，接下来完成测试。"
+      :"今天的早读和测试都完成了，再走一遍也不会推进进度。";
+  let actions;
+  if(!reviewDone){
+    actions=resumed
+      ?[`<button onclick="startSession('resume')">继续上次复习</button>`,`<button class="secondary" onclick="startSession('normal')">从头开始</button>`]
+      :[`<button onclick="startSession('normal')">开始今日复习</button>`];
+  }else if(!testDone){
+    actions=[`<button onclick="startSession('test')">开始测试</button>`,`<button class="secondary" onclick="startSession('normal')">再复习一遍</button>`];
+  }else{
+    actions=[`<button class="secondary" onclick="startSession('normal')">再复习一遍</button>`,`<button class="secondary" onclick="startSession('test')">再测一遍</button>`];
+  }
+  const actionsHtml=`<div class="welcome-actions${actions.length===1?" single":""}">${actions.join("")}</div>`;
   welcomeContent.innerHTML=`<div class="overlay-card welcome-card">
     <div class="welcome-art" aria-hidden="true"><img src="cover-hao-qian.png" alt=""></div>
     <div class="welcome-copy">
-      <div class="eyebrow">CHEN HAOQIAN · 30-DAY PLAN</div>
-      <h1><span>陈浩谦</span>高频词早读</h1>
-      <div class="subtitle">积累每一天 · 成长看得见</div>
-      <div class="course-seal">共 ${ALL_ITEMS.length} 词 <i></i> 分 30 天</div>
-      <div class="day-display"><span class="day-label">DAY</span><span class="day-num">${String(day).padStart(2,"0")}</span><span class="day-total">/ 30</span></div>
-      <div class="day-track"><span style="width:${Math.max(3,day/30*100)}%"></span></div>
+      <div class="eyebrow">CHEN HAOQIAN · UNIT 1 REVIEW</div>
+      <h1><span>陈浩谦</span>课堂词复习</h1>
+      <div class="subtitle">9 月 5 日课堂词汇 · 早读 + 测试</div>
+      <div class="course-seal">共 ${total} 词 <i></i> ${BANK.unit}</div>
+      <div class="day-display"><span class="day-label">课堂</span><span class="day-num">${total}</span><span class="day-total">词</span></div>
       <div class="stats-row">
-        <div class="stat review"><div class="num">${state.reviewCount}</div><div class="lbl">到期复习</div></div>
-        <div class="stat new"><div class="num">${state.newCount}</div><div class="lbl">今日新词</div></div>
+        <div class="stat review"><div class="num">${progress.runCount}</div><div class="lbl">早读完成次数</div></div>
+        <div class="stat new"><div class="num">${progress.testRunCount}</div><div class="lbl">测试完成次数</div></div>
       </div>
       <div class="motto">${motto}</div>
-      ${completedToday?`<button class="secondary" onclick="startSession('redo')">重温第 ${day} 天词汇</button>`:`<button onclick="startSession('normal')">开始今日早读</button>`}
-      <button type="button" class="reset-link" onclick="resetAll()" aria-label="重置所有学习进度" title="重置所有学习进度">重置进度</button>
+      ${actionsHtml}
+      <button type="button" class="reset-link" onclick="resetAll()" aria-label="重置课堂词复习进度" title="重置课堂词复习进度">重置进度</button>
     </div>
   </div>`;
   welcomeOverlay.classList.add("show");completeOverlay.classList.remove("show");phaseLabel.textContent="";
-  $("curWord").textContent="—";$("wordCount").textContent=`0/${state.queue.length}`;statsEl.textContent=`DAY ${day} · 复习 ${state.reviewCount} · 新词 ${state.newCount}`;catLabel.textContent="";fillBar.className="fill";fillBar.style.width="0%";
+  $("curWord").textContent="—";$("wordCount").textContent=`0/${state.queue.length}`;statsEl.textContent=`课堂词 ${total} 个 · 早读 ${progress.runCount} 次 · 测试 ${progress.testRunCount} 次`;catLabel.textContent="";fillBar.className="fill";fillBar.style.width="0%";
 }
 
-function showComplete(){
-  const day=progress.courseDay,totalLearned=Object.keys(progress.entries).length,redo=state.mode==="redo";
+function showComplete(unknownIds=[]){
+  const total=ALL_ITEMS.length;
+  const missed=unknownIds.map(id=>ITEM_BY_ID.get(id)).filter(Boolean);
   completeContent.innerHTML=`<div class="overlay-card">
     <div class="complete-mark">✓</div><div class="eyebrow">SESSION COMPLETE</div>
-    <h2>${redo?"重温完成":"今日完成"}</h2><div class="subtitle">陈浩谦 · DAY ${day}</div>
-    <div class="complete-total">${redo?state.completedRedo:state.completedReview+state.completedNew}</div><div class="complete-caption">本次完成词次</div>
+    <h2>今天全部完成</h2><div class="subtitle">陈浩谦 · 早读 + 测试</div>
+    <div class="complete-total">${total}</div><div class="complete-caption">课堂词已走完</div>
     <div class="stats-row">
-      <div class="stat review"><div class="num">${state.completedReview}</div><div class="lbl">复习完成</div></div>
-      <div class="stat new"><div class="num">${state.completedNew}</div><div class="lbl">新词完成</div></div>
+      <div class="stat review"><div class="num">${total}</div><div class="lbl">早读完成</div></div>
+      <div class="stat new"><div class="num">${missed.length}</div><div class="lbl">需要再练</div></div>
     </div>
-    <div class="motto">累计完成 ${totalLearned} 个课程条目。${!redo&&state.completedNew?"下一课程日将在明天解锁。":""}</div>
+    ${missed.length
+      ?`<div class="complete-caption">这些词下次再练一遍</div><div id="unknownList">${missed.map(item=>`<span>${item.word}</span>`).join("")}</div>`
+      :`<div class="motto">92 个词全部想起来了，很扎实。</div>`}
     <button class="secondary" onclick="showWelcome()">返回首页</button>
   </div>`;
   completeOverlay.classList.add("show");welcomeOverlay.classList.remove("show");
 }
 
 function resetAll(){
-  if(!confirm("确定清除陈浩谦的全部学习和复习进度吗？"))return;
+  if(!confirm("确定清除陈浩谦的课堂词复习进度吗？"))return;
   invalidateRun();localStorage.removeItem(STORE_KEY);progress=emptyStore();saveStore();showWelcome();
 }
 
@@ -865,8 +924,11 @@ function render(){
 
 muteBtn.addEventListener("click",event=>{event.stopPropagation();ensureAudio();setMuted(!muted);if(!muted)playSound("click");});
 $("btnPause").addEventListener("click",event=>{event.stopPropagation();togglePause();});
-cv.addEventListener("click",togglePause);
-document.addEventListener("keydown",event=>{if(event.code==="Space"){event.preventDefault();togglePause();}});
+$("btnKnown").addEventListener("click",event=>{event.stopPropagation();answerTestItem(true);});
+$("btnUnknown").addEventListener("click",event=>{event.stopPropagation();answerTestItem(false);});
+/* 测试阶段靠按钮推进，点空白不暂停，避免误触 */
+cv.addEventListener("click",()=>{if(state.phase!=="test")togglePause();});
+document.addEventListener("keydown",event=>{if(event.code==="Space"){event.preventDefault();if(state.phase!=="test")togglePause();}});
 
 render();showWelcome();
 
