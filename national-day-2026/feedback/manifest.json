@@ -1,0 +1,116 @@
+{
+  "version": "national-day-encouragement-2026-09-29",
+  "confirmedCandidates": [
+    1,
+    3,
+    5,
+    9,
+    10
+  ],
+  "poolSize": 10,
+  "voice": "zh-CN-YunxiNeural",
+  "intervalCards": 15,
+  "repeatPolicy": "shuffle without replacement; no identical neighbor across cycles; persist completed cues",
+  "records": [
+    {
+      "id": "encourage-1",
+      "file": "encourage-1.mp3",
+      "text": "不要分心，保持专注。",
+      "origin": "original recording preserved byte-for-byte",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": null,
+      "seconds": 2.712,
+      "sha256": "37af9fb67fc551f1b31936326655332c3f993c8c0be6fc7c71f4def54f7ba904"
+    },
+    {
+      "id": "encourage-2",
+      "file": "encourage-2.mp3",
+      "text": "陈浩谦，很棒。深呼吸，我们继续。",
+      "origin": "original recording preserved byte-for-byte",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": null,
+      "seconds": 4.776,
+      "sha256": "d2cde72cc4bdb1afab0a1207ac9694cc8267b28ecc91f9e2317ad36d01b66770"
+    },
+    {
+      "id": "encourage-3",
+      "file": "encourage-3.mp3",
+      "text": "陈浩谦，很好，就是这个节奏。",
+      "origin": "original recording preserved byte-for-byte",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": null,
+      "seconds": 3.648,
+      "sha256": "03a5e5b5b81efe389d6a4145288482ac8bfef4ef43c5a8fd7332e632ebd217de"
+    },
+    {
+      "id": "encourage-4",
+      "file": "encourage-4.mp3",
+      "text": "陈浩谦，这是一条不得不走的路，坚持住。",
+      "origin": "original recording preserved byte-for-byte",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": null,
+      "seconds": 4.44,
+      "sha256": "88618af1d709c6500a0aa170d85b108995c3c6175e7522d0325bce690094872c"
+    },
+    {
+      "id": "encourage-5",
+      "file": "encourage-5.mp3",
+      "text": "陈浩谦，太棒了，越来越顺了，继续坚持。",
+      "origin": "original recording preserved byte-for-byte",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": null,
+      "seconds": 4.464,
+      "sha256": "9091a5e6001e855f1668f53740b90e94a5ad2e10d09a1c50cba27022d68b1070"
+    },
+    {
+      "id": "encourage-6",
+      "file": "encourage-6.mp3",
+      "text": "陈浩谦，注意力收回来。看清单词，跟着声音，大声读出来。",
+      "origin": "new user-confirmed script",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": 1,
+      "seconds": 6.456,
+      "sha256": "b20cd9ebfbc4df33483c91a42ca66ec133e8692e078dd6fed9a3b664a9dcffa7"
+    },
+    {
+      "id": "encourage-7",
+      "file": "encourage-7.mp3",
+      "text": "陈浩谦，不要只用眼睛看。嘴巴跟上，每一个词都要读出声音。",
+      "origin": "new user-confirmed script",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": 3,
+      "seconds": 6.432,
+      "sha256": "df4a019ad20fa957bfd8458f8d68ae325188d330b881a7cd016d867a71c3a45b"
+    },
+    {
+      "id": "encourage-8",
+      "file": "encourage-8.mp3",
+      "text": "陈浩谦，很好，又完成了一组。保持这个劲头，把下一组读扎实。",
+      "origin": "new user-confirmed script",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": 5,
+      "seconds": 7.248,
+      "sha256": "9caaf8f395caf28aba309b1e1f189af0c67b07015d52769cb644e488389c70ad"
+    },
+    {
+      "id": "encourage-9",
+      "file": "encourage-9.mp3",
+      "text": "陈浩谦，复习就是要反复。再遇到这些词，争取比上一遍更熟练。",
+      "origin": "new user-confirmed script",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": 9,
+      "seconds": 6.6,
+      "sha256": "2d271dfb840d7661fefcc701d66c300bc9dd48dcb556ffba4627bfcd3968ea59"
+    },
+    {
+      "id": "encourage-10",
+      "file": "encourage-10.mp3",
+      "text": "陈浩谦，坚持住。任务还没完成，把注意力放回屏幕，我们接着读。",
+      "origin": "new user-confirmed script",
+      "voice": "zh-CN-YunxiNeural",
+      "candidate": 10,
+      "seconds": 6.912,
+      "sha256": "477603459e05af8c0e02d24da03674158f83cf7bd72ddf21a619704287d9f6d0"
+    }
+  ]
+}
