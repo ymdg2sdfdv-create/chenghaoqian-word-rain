@@ -1,0 +1,5 @@
+pending-data.json
+audio-receipts/
+audio-errors.json
+*.tmp.mp3
+audio/*.tmp.mp3
