@@ -5,15 +5,16 @@ function buildPlan(data){
  data.items.forEach((item,itemIndex)=>{
   item.terms.forEach((term,termIndex)=>{
    const common={itemIndex,termIndex,formIndex,number:item.number,group:item.group,forms:item.forms,word:term.word,display:term.display,pos:term.pos,role:term.role,cn:term.cn};
-   for(let round=1;round<=data.config.spellRounds;round++){
+   for(let round=1;!term.phrase&&round<=data.config.spellRounds;round++){
     for(const step of term.steps)add({kind:'audio',stage:'spell',round,visible:step.visible,file:step.letter?data.letters[step.audio].file:data.audio[step.audio].file},common);
     add({kind:'audio',stage:'reveal',round,visible:term.word,file:data.audio[term.enAudio].file},common);
     add({kind:'wait',stage:'reveal',round,visible:term.word,ms:data.config.revealHoldMs},common);
     add({kind:'audio',stage:'reveal',round,visible:term.word,file:data.audio[term.cnAudio].file},common);
    }
-   for(let round=1;round<=data.config.burstRounds;round++){
-    add({kind:'audio',stage:'burst',round,visible:term.word,language:'en',file:data.audio[term.enAudio].file},common);
-    add({kind:'audio',stage:'burst',round,visible:term.word,language:'cn',file:data.audio[term.cnAudio].file},common);
+   const wholeRounds=term.phrase?data.config.phraseRounds:data.config.burstRounds;
+   for(let round=1;round<=wholeRounds;round++){
+    add({kind:'audio',stage:'burst',round,roundTotal:wholeRounds,visible:term.word,language:'en',file:data.audio[term.enAudio].file},common);
+    add({kind:'audio',stage:'burst',round,roundTotal:wholeRounds,visible:term.word,language:'cn',file:data.audio[term.cnAudio].file},common);
    }
    add({kind:'formEnd'},common);formIndex++;
   });
