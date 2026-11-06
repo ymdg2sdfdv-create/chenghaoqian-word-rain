@@ -3,7 +3,8 @@
   const $ = id => document.getElementById(id);
   const voice = $('voice'), home = $('home'), reader = $('reader');
   let data, plan = [], cursor = 0, generation = 0, status = 'idle', pending = null;
-  let startPosition = 1, completedItems = 0, completedTerms = 0, wakeLock = null, preloaded = [];
+  let startPosition = 1, completedItems = 0, completedTerms = 0, wakeLock = null;
+  let unlockReady = Promise.resolve(), unlockFailed = false, loadState = 'idle', lastFailure = null;
   const safe = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const minutes = seconds => `${Math.ceil(seconds / 60)}分钟`;
   const displayTime = ms => { const seconds = Math.ceil(Math.max(0, ms) / 1000); return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`; };
@@ -16,21 +17,27 @@
     if (!$('pause')) return;
     $('pause').textContent = status === 'running' ? '暂停' : status === 'error' ? '重试并继续' : '继续';
     $('play-state').textContent = status === 'running' ? '正在朗读' : status === 'error' ? '等待重试' : '已暂停';
+    if (status === 'running' && pending?.event.type === 'audio' && loadState !== 'playing') $('play-state').textContent = '正在准备当前声音，请稍候…';
     if (pending?.event.type === 'countdown') $('play-state').textContent = status === 'running' ? '恢复注意力 · 计时中' : '恢复注意力 · 已暂停';
   }
   function pause(message) {
     if (status !== 'running') return;
-    status = 'paused'; pending?.pause(); voice.pause(); releaseWakeLock(); controls();
+    status = 'paused'; pending?.pause(); if (loadState !== 'downloading') voice.pause(); releaseWakeLock(); controls();
     if (message) $('reader-note').textContent = message;
   }
   function resume() {
     if (status !== 'paused' && status !== 'error') return;
     const retry = status === 'error'; status = 'running'; $('play-error').hidden = true;
+    if (unlockFailed) unlockSound();
     $('reader-note').textContent = '跟着声音读；需要休息时，随时暂停。'; controls(); keepAwake(); pending?.resume(retry);
   }
   function cancel() {
     generation++; status = 'idle'; pending?.cancel(); pending = null; voice.pause();
-    voice.removeAttribute('src'); voice.load(); preloaded = []; releaseWakeLock();
+    voice.removeAttribute('src'); voice.load(); Nov07Audio.cancelDownloads(); loadState = 'idle'; releaseWakeLock();
+  }
+  function unlockSound() {
+    const token = generation; unlockFailed = false;
+    unlockReady = Nov07Audio.unlock(voice).then(() => null, error => { if (token === generation) unlockFailed = true; return error; });
   }
   function renderShell() {
     reader.innerHTML = `<header class="read-head"><div><h1>11月7日 · 模拟试卷一早读</h1><p id="play-state">正在朗读</p></div><button id="back" type="button">返回封面</button></header><div class="progress" role="progressbar" aria-label="本轮朗读进度" aria-valuemin="0" aria-valuemax="${82 - startPosition}" aria-valuenow="0"><span id="progress-fill"></span></div><section id="focus" class="focus"></section><div id="play-error" class="play-error" role="alert" hidden></div><div class="actions"><button id="pause" type="button">暂停</button><button id="restart" class="secondary" type="button">从本次起点重读</button></div><p id="reader-note" class="read-note">跟着声音读；需要休息时，随时暂停。</p>`;
@@ -55,45 +62,77 @@
     }
     controls();
   }
-  function warmAhead() {
-    const paths = [...new Set(plan.slice(cursor + 1).filter(e => e.type === 'audio').map(e => e.file))].slice(0, 4);
-    preloaded = paths.map(file => { const old = preloaded.find(entry => entry.file === file); if (old) return old; const audio = new Audio(); audio.preload = 'auto'; audio.src = file; audio.load(); return {file, audio}; });
+  function warmAhead(currentFile) {
+    const paths = [...new Set(plan.slice(cursor + 1).filter(e => e.type === 'audio' && e.file !== currentFile).map(e => e.file))];
+    Nov07Audio.prefetch(paths.slice(0, 2));
   }
   function audioStep(event, token) {
     return new Promise(resolve => {
-      let raf = 0, watchdog = 0, lastTime = -1, stalledFor = 0, savedOffset = 0, settled = false;
-      const cleanup = () => { cancelAnimationFrame(raf); clearInterval(watchdog); voice.onended = voice.onerror = voice.onloadedmetadata = null; };
+      let raf = 0, watchdog = 0, lastTime = -1, lastProgress = 0, savedOffset = 0, settled = false;
+      let attempt = 0, readyURL = '', failedCode = '';
+      const current = number => token === generation && !settled && number === attempt;
+      const cleanup = () => { cancelAnimationFrame(raf); clearInterval(watchdog); voice.onended = voice.onerror = voice.onloadedmetadata = voice.onplaying = null; };
       const finish = () => { if (settled) return; settled = true; cleanup(); resolve(); };
-      const failure = () => {
-        if (token !== generation || status === 'idle') return;
-        savedOffset = voice.currentTime || 0; status = 'error'; voice.pause(); releaseWakeLock();
-        $('play-error').textContent = '这段声音暂时没有加载好。检查网络后，点击“重试并继续”，会接着当前这一轮朗读。'; $('play-error').hidden = false; controls();
+      const failure = (code, number) => {
+        if (!current(number) || status !== 'running') return;
+        failedCode = code; loadState = 'failed';
+        lastFailure = {version:Nov07Audio.version, code, file:event.file, mediaCode:voice.error?.code || null, readyState:voice.readyState, networkState:voice.networkState};
+        if (readyURL && voice.src === new URL(readyURL, document.baseURI).href) savedOffset = Math.max(savedOffset, voice.currentTime || 0);
+        status = 'error'; voice.pause(); releaseWakeLock();
+        const explanation = code === 'TAP_REQUIRED' ? 'Safari还没有开启声音。请点“重试并继续”开启。' : code.startsWith('DOWNLOAD') || code.startsWith('HTTP') ? '当前录音尚未下载完成。请点“重试并继续”，会保留当前朗读位置。' : '当前声音未能启动。请点“重试并继续”；如果仍不播放，可展开下方故障信息。';
+        $('play-error').innerHTML = `${explanation}<details><summary>查看故障信息</summary><pre>${safe(JSON.stringify(lastFailure, null, 2))}</pre></details>`;
+        $('play-error').hidden = false; controls();
       };
       const animate = () => {
         if (settled || token !== generation) return;
         if (event.stage === 'spell') {
-          const current = event.marks.filter(mark => mark.startSeconds <= voice.currentTime).length;
-          document.querySelectorAll('#english .letter').forEach((letter, i) => { letter.className = 'letter ' + (i < current - 1 ? 'spoken' : i === current - 1 ? 'current' : 'upcoming'); });
+          const time = readyURL && voice.src === new URL(readyURL, document.baseURI).href ? voice.currentTime : 0;
+          const count = event.marks.filter(mark => mark.startSeconds <= time).length;
+          document.querySelectorAll('#english .letter').forEach((letter, i) => { letter.className = 'letter ' + (i < count - 1 ? 'spoken' : i === count - 1 ? 'current' : 'upcoming'); });
         }
         raf = requestAnimationFrame(animate);
       };
+      const playReady = (number, retry) => {
+        if (!current(number) || status !== 'running') return;
+        loadState = 'starting'; lastProgress = performance.now(); lastTime = -1; controls();
+        voice.onended = () => { if (current(number) && status === 'running') finish(); };
+        voice.onerror = () => failure('MEDIA_' + (voice.error?.code || 'ERROR'), number);
+        voice.onplaying = () => {
+          if (!current(number) || status !== 'running') return;
+          loadState = 'playing'; lastProgress = performance.now(); controls(); warmAhead(event.file);
+        };
+        const needsReload = voice.src !== new URL(readyURL, document.baseURI).href || Boolean(voice.error) || (retry && failedCode === 'PLAY_ABORTED');
+        if (needsReload) {
+          voice.onloadedmetadata = () => { if (current(number) && savedOffset) voice.currentTime = Math.min(savedOffset, Math.max(0, voice.duration - .05)); };
+          voice.src = readyURL; voice.load();
+        }
+        voice.play().then(() => {
+          if (!current(number)) return;
+          if (status !== 'running') voice.pause();
+          else { loadState = 'playing'; controls(); warmAhead(event.file); }
+        }).catch(error => failure(error.name === 'NotAllowedError' ? 'TAP_REQUIRED' : error.name === 'AbortError' ? 'PLAY_ABORTED' : 'PLAY_' + error.name, number));
+      };
       const play = retry => {
         if (token !== generation || settled || status !== 'running') return;
-        if (retry) {
-          voice.onloadedmetadata = () => { if (token === generation && savedOffset) voice.currentTime = Math.min(savedOffset, Math.max(0, voice.duration - .05)); };
-          voice.src = event.file; voice.load();
-        }
-        lastTime = -1; stalledFor = 0;
-        voice.play().then(() => { if (token !== generation) return; if (status !== 'running') voice.pause(); }).catch(error => { if (error.name !== 'AbortError' && status === 'running') failure(); });
+        const number = ++attempt;
+        if (retry && readyURL && failedCode && failedCode !== 'TAP_REQUIRED') { Nov07Audio.invalidate(event.file); readyURL = ''; }
+        if (location.protocol === 'file:') readyURL = event.file;
+        if (readyURL && !unlockFailed) { playReady(number, retry); return; }
+        loadState = 'downloading'; controls();
+        Promise.all([unlockReady, Nov07Audio.prepare(event.file, retry)]).then(([unlockError, url]) => {
+          if (!current(number)) return;
+          if (unlockError) { failure(unlockError.code || 'TAP_REQUIRED', number); return; }
+          readyURL = url; playReady(number, retry);
+        }).catch(error => failure(typeof error.code === 'string' ? error.code : 'DOWNLOAD_FAILED', number));
       };
-      pending = {event, pause: () => voice.pause(), resume: play, cancel: finish};
-      voice.onended = finish; voice.onerror = failure; voice.src = event.file; voice.load();
+      pending = {event, pause: () => { attempt++; savedOffset = readyURL ? voice.currentTime || 0 : 0; if (readyURL) voice.pause(); }, resume: play, cancel: finish};
       watchdog = setInterval(() => {
-        if (status !== 'running' || token !== generation) return;
-        if (voice.currentTime === lastTime) stalledFor++; else stalledFor = 0;
-        lastTime = voice.currentTime; if (stalledFor >= 20) failure();
+        if (status !== 'running' || token !== generation || !['starting','playing'].includes(loadState)) return;
+        if (voice.currentTime !== lastTime) lastProgress = performance.now();
+        lastTime = voice.currentTime;
+        if (performance.now() - lastProgress >= 15000) failure('PLAY_TIMEOUT', attempt);
       }, 1000);
-      animate(); play(false); warmAhead();
+      animate(); play(false);
     });
   }
   function timedStep(event, token) {
@@ -137,7 +176,9 @@
     if (!data) return;
     cancel(); startPosition = from; completedItems = completedTerms = cursor = 0;
     plan = Nov07Core.buildPlan(data, from); status = 'running'; home.hidden = true; reader.hidden = false;
-    renderShell(); window.scrollTo(0, 0); keepAwake(); run(generation).catch(() => { status = 'error'; $('play-error').textContent = '播放未能继续，请返回封面后重新开始。'; $('play-error').hidden = false; controls(); });
+    renderShell(); window.scrollTo(0, 0); lastFailure = null; unlockSound(); keepAwake();
+    const token = generation;
+    run(token).catch(() => { if (token !== generation) return; status = 'error'; $('play-error').textContent = '播放未能继续，请返回封面后重新开始。'; $('play-error').hidden = false; controls(); });
   }
   function ready() {
     data = window.NOV07_DATA;
@@ -148,7 +189,7 @@
       button.disabled = false; button.querySelector('.duration').textContent = `第${section.from}–${section.to}项 · 本段约${minutes(section.readingSeconds)}`;
       button.onclick = () => start(section.from);
     });
-    $('status').textContent = '词汇已就绪 · 72个单词 + 9个短语；left、paid随原词朗读。'; $('retry').hidden = true;
+    $('status').textContent = '词汇已就绪 · 72个单词 + 9个短语；left、paid随原词朗读。声音兼容版。'; $('retry').hidden = true;
   }
   function load() {
     $('status').textContent = '正在准备本次词汇，封面已就绪。'; $('retry').hidden = true;
@@ -162,6 +203,6 @@
   $('retry').onclick = load;
   document.addEventListener('visibilitychange', () => { if (document.hidden) pause('离开页面时已暂停；回来后点击“继续”。'); });
   window.addEventListener('pagehide', () => pause());
-  window.NOV07_PLAYER = Object.freeze({snapshot: () => ({status, cursor, startPosition, completedItems, completedTerms, stage: pending?.event.stage, position: pending?.event.item?.position, word: pending?.event.term?.word, remainingMs: pending?.remaining?.()})});
+  window.NOV07_PLAYER = Object.freeze({snapshot: () => ({status, cursor, startPosition, completedItems, completedTerms, stage: pending?.event.stage, position: pending?.event.item?.position, word: pending?.event.term?.word, remainingMs: pending?.remaining?.(), runtimeVersion:Nov07Audio.version, loadState, lastFailure})});
   load();
 })();
