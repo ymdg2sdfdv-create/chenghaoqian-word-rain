@@ -1,7 +1,7 @@
 /* Keep short recordings in memory: one playback element, complete HTTP downloads. */
 (() => {
   'use strict';
-  const VERSION = 'nov07-ipad-audio-v2';
+  const VERSION = 'nov07-tight-audio-v3';
   const cache = new Map(), loading = new Map();
   let requestNumber = 0;
   const problem = (code, cause) => Object.assign(new Error(code), {code, cause});

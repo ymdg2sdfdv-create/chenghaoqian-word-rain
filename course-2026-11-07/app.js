@@ -182,7 +182,7 @@
   }
   function ready() {
     data = window.NOV07_DATA;
-    if (!data || data.version !== 'nov07-8ms-v1' || data.items.length !== 81) throw new Error('Incomplete data');
+    if (!data || data.version !== 'nov07-tight-audio-v3' || data.items.length !== 81) throw new Error('Incomplete data');
     $('start').disabled = false; $('start').innerHTML = '开始今天的早读 <span aria-hidden="true">→</span>'; $('start').onclick = () => start(1);
     document.querySelectorAll('[data-part]').forEach(button => {
       const section = data.sections.find(s => s.id === button.dataset.part);
@@ -194,7 +194,7 @@
   function load() {
     $('status').textContent = '正在准备本次词汇，封面已就绪。'; $('retry').hidden = true;
     if (window.NOV07_DATA) { try { ready(); return; } catch (_) { window.NOV07_DATA = null; } }
-    const script = document.createElement('script'); script.src = `data.js?v=nov07-8ms-v1&attempt=${Date.now()}`;
+    const script = document.createElement('script'); script.src = `data.js?v=nov07-tight-audio-v3&attempt=${Date.now()}`;
     let timer = setTimeout(failure, 20000);
     function failure() { clearTimeout(timer); script.remove(); script.onload = script.onerror = null; $('status').textContent = '词汇暂时没有加载好，请检查网络后重试。'; $('retry').hidden = false; }
     script.onload = () => { clearTimeout(timer); try { ready(); } catch (_) { failure(); } };

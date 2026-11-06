@@ -9,7 +9,7 @@
         const common = {item, term};
         const whole = (stage, round) => {
           plan.push({...common, type: 'audio', stage, round, language: 'en', file: data.audio[term.enAudio].file, seconds: data.audio[term.enAudio].seconds});
-          if (stage === 'reveal') plan.push({...common, type: 'wait', stage, round, ms: config.revealHoldMs});
+          if (stage === 'reveal' && config.revealHoldMs > 0) plan.push({...common, type: 'wait', stage, round, ms: config.revealHoldMs});
           plan.push({...common, type: 'audio', stage, round, language: 'cn', file: data.audio[term.cnAudio].file, seconds: data.audio[term.cnAudio].seconds});
         };
         if (term.phrase) {
@@ -30,7 +30,7 @@
         plan.push({type: 'audio', stage: 'encouragement', item, cue, file: cue.file, seconds: cue.seconds});
         plan.push({type: 'countdown', stage: 'recovery', item, cue, ms: config.recoverySeconds * 1000});
       }
-      if (index < selected.length - 1) plan.push({type: 'wait', stage: 'gap', item, ms: config.itemGapMs});
+      if (index < selected.length - 1 && config.itemGapMs > 0) plan.push({type: 'wait', stage: 'gap', item, ms: config.itemGapMs});
     }
     return plan;
   }
