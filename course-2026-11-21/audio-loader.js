@@ -1,7 +1,7 @@
 /* Keep short recordings in memory: one playback element, complete HTTP downloads. */
 (() => {
   'use strict';
-  const VERSION = 'nov21-reading-v1';
+  const VERSION = 'nov21-reading-v2';
   const cache = new Map(), loading = new Map();
   let requestNumber = 0;
   const problem = (code, cause) => Object.assign(new Error(code), {code, cause});

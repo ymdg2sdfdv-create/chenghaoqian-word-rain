@@ -22,7 +22,7 @@
       const timer = setTimeout(() => finish(new Error('Audio pack timed out')), 45000);
       script.onload = () => finish(packs.has(name) ? null : new Error('Missing audio pack'));
       script.onerror = () => finish(new Error('Audio pack did not load'));
-      script.src = name + '?v=nov21-reading-v1'; document.head.appendChild(script);
+      script.src = name + '?v=nov21-reading-v2'; document.head.appendChild(script);
     });
     pending.set(name, result); return result;
   }
